@@ -1,0 +1,1535 @@
+4 295 199
+
+chr21.BS.bfa 1584.30595684 1 0
+chr211.sfq 328.643829346 1 0
+chr210.sfq 308.327607155 1 0
+chr21.BSnull.bfa 1584.30595684 1 0
+chr21.1.1.contam.sfq 6.83664894104
+chr21.1.7.contam.sfq 6.96096897125
+chr21.1.18.nocontam.fq 5.07115459442
+chr21.0.1.nocontam.fq 4.99545478821
+chr21.1.6.contam.sfq 6.94683551788
+chr21.1.1.nocontam.bfq 1.11472797394
+chr21.0.12.nocontam.map 1.51604175568
+chr21.0.13.nocontam.map 0.871875762939
+chr21.0.14.nocontam.bfq 0.970370292664
+chr21.0.19.nocontam.bfq 0.806056976318
+chr21.0.11.sfq 12.2144613266
+chr21.0.13.contam.sfq 6.38018608093
+chr21.1.2.sfq 13.1677980423
+chr21.1.9.contam.sfq 6.78583431244
+chr21.1.13.sfq 14.4582872391
+chr21.1.2.nocontam.fq 4.99531173706
+chr21.0.11.nocontam.map 1.20593452454
+chr21.1.22.nocontam.sfq 7.08999252319
+chr21.0.13.sfq 12.3111381531
+chr21.0.0.nocontam.map 1.3022480011
+chr21.1.21.sfq 13.5748958588
+chr21.0.11.nocontam.bfq 1.10945987701
+chr21.0.20.nocontam.fq 5.58951759338
+chr21.1.17.nocontam.bfq 1.23265075684
+chr21.1.12.nocontam.fq 8.27933120728
+chr21.0.8.sfq 12.3411064148
+chr21.0.4.nocontam.bfq 1.36585712433
+chr21.1.7.sfq 13.4796762466
+chr21.1.16.nocontam.fq 5.30328273773
+chr21.1.15.contam.sfq 7.41613101959
+chr21.1.9.nocontam.map 1.25591087341
+chr21.0.1.nocontam.sfq 6.12702178955
+chr21.0.22.sfq 12.1049203873
+chr21.1.22.contam.sfq 6.52097892761
+chr21.1.22.sfq 13.6109714508
+chr21.0.17.sfq 11.9093923569
+chr21.1.16.contam.sfq 6.47899913788
+chr21.1.12.sfq 13.9845790863
+chr21.0.9.nocontam.bfq 1.44439792633
+chr21.1.16.nocontam.map 1.40260124207
+chr21.1.2.nocontam.bfq 1.15263652802
+chr21.1.11.nocontam.sfq 6.68579769135
+chr21.0.23.nocontam.sfq 6.50875282288
+chr21.1.14.nocontam.bfq 1.56625175476
+chr21.1.3.contam.sfq 6.98193073273
+chr21.1.20.nocontam.fq 6.97235012054
+chr21.1.10.nocontam.bfq 1.24262619019
+chr21.1.21.nocontam.bfq 2.02426052094
+chr21.1.0.sfq 13.8751592636
+chr21.1.13.nocontam.bfq 1.52512741089
+chr21.0.20.contam.sfq 6.47484016418
+chr21.0.8.nocontam.bfq 2.01439571381
+chr21.0.23.nocontam.bfq 1.33976078033
+chr21.1.10.nocontam.sfq 6.99846172333
+chr21.0.18.sfq 13.4570007324
+chr21.1.14.nocontam.sfq 6.76318645477
+chr21.1.17.nocontam.sfq 6.86025714874
+chr21.0.20.sfq 13.6300230026
+chr21.1.21.contam.sfq 6.59535121918
+chr21.0.15.nocontam.bfq 1.36615657806
+chr21.1.19.nocontam.fq 4.87211418152
+chr21.0.7.nocontam.fq 6.02480792999
+chr21.0.18.nocontam.fq 4.34097480774
+chr21.nocontam.chr.pileup 5.63251590729
+chr21.0.0.nocontam.sfq 6.37125968933
+chr21.1.10.nocontam.fq 5.32960033417
+chr21.1.16.nocontam.sfq 6.37036418915
+chr21.0.14.nocontam.fq 4.47431945801
+chr21.0.12.contam.sfq 6.7340669632
+chr21.1.11.nocontam.map 1.74981880188
+chr21.0.10.nocontam.map 1.06244373322
+chr21.1.8.nocontam.bfq 1.12344074249
+chr21.0.22.nocontam.sfq 6.32430553436
+chr21.0.17.nocontam.bfq 1.41816425323
+chr21.0.21.nocontam.map 1.44001960754
+chr21.0.4.nocontam.fq 5.26356315613
+chr21.1.11.sfq 13.532497406
+chr21.0.11.nocontam.sfq 5.88362979889
+chr21.1.5.nocontam.fq 5.90011119843
+chr21.1.3.sfq 13.9944639206
+chr21.1.1.nocontam.fq 5.4822101593
+chr21.0.23.nocontam.map 1.45626163483
+chr21.1.19.nocontam.map 1.10487937927
+chr21.1.19.nocontam.sfq 6.95803833008
+chr21.1.10.nocontam.map 1.35068035126
+chr21.0.9.nocontam.map 1.5699968338
+chr21.1.23.nocontam.fq 5.60450649261
+chr21.0.18.nocontam.bfq 1.05268669128
+chr21.0.4.nocontam.sfq 6.15294837952
+chr21.0.11.nocontam.fq 4.59766674042
+chr21.1.12.nocontam.bfq 1.85540390015
+chr21.0.3.nocontam.sfq 6.05271053314
+chr21.1.4.contam.sfq 6.91271781921
+chr21.0.5.nocontam.sfq 6.896692276
+chr21.1.10.contam.sfq 6.65669727325
+chr21.1.9.nocontam.bfq 1.15543842316
+chr21.1.16.sfq 12.849363327
+chr21.0.5.nocontam.fq 6.16273593903
+chr21.0.3.nocontam.fq 8.50216960907
+chr21.0.5.contam.sfq 6.68587779999
+chr21.1.14.contam.sfq 6.25371932983
+chr21.0.21.nocontam.sfq 6.21076965332
+chr21.1.6.nocontam.map 1.15839576721
+chr21.1.2.contam.sfq 6.38569259644
+chr21.0.16.nocontam.fq 4.62718868256
+chr21.1.4.sfq 13.5446748734
+chr21.nocontam.map.vm 0.124200820923
+chr21.0.5.sfq 13.582570076
+chr21.0.16.nocontam.sfq 6.88465595245
+chr21.1.21.nocontam.sfq 6.97954463959
+chr21.1.7.nocontam.map 1.15573787689
+chr21.0.1.sfq 12.2456207275
+chr21.1.7.nocontam.fq 4.61479187012
+chr21.0.20.nocontam.bfq 1.16733264923
+chr21.1.11.contam.sfq 6.84669971466
+chr21.1.9.nocontam.sfq 6.52486896515
+chr21_0.nocontam.map 32.0276536942
+chr21.1.18.nocontam.sfq 7.50581455231
+chr21.0.6.nocontam.map 2.4131269455
+chr21.1.8.nocontam.sfq 7.24395561218
+chr21.1.9.sfq 13.3107032776
+chr21.0.17.nocontam.sfq 6.04425525665
+chr21.0.14.nocontam.sfq 6.58437252045
+chr21.0.8.nocontam.fq 8.65557384491
+chr21.0.21.nocontam.bfq 1.32481861115
+chr21.0.9.nocontam.fq 5.67991828918
+chr21.0.4.nocontam.map 1.48462677002
+chr21.0.1.nocontam.map 1.05403518677
+chr21.0.6.nocontam.bfq 2.22007751465
+chr21.1.17.sfq 13.8424510956
+chr21.0.16.contam.sfq 6.37635993958
+chr21.1.0.nocontam.bfq 1.52546596527
+chr21.1.22.nocontam.bfq 1.14839172363
+chr21.1.13.nocontam.sfq 7.23770046234
+chr21.0.17.nocontam.map 1.54148197174
+chr21.1.5.nocontam.bfq 1.48205184937
+chr21.0.23.sfq 13.1689395905
+chr21.0.1.nocontam.bfq 0.96971321106
+chr21.0.22.nocontam.fq 5.22700881958
+chr21.1.23.contam.sfq 7.41963768005
+chr21.0.22.nocontam.map 1.30049228668
+chr21.0.8.nocontam.sfq 6.00859355927
+chr21.1.18.contam.sfq 7.26096534729
+chr21.1.8.nocontam.map 1.22113037109
+chr21.0.2.nocontam.sfq 6.68943881989
+chr21.0.18.contam.sfq 6.92677783966
+chr21.0.14.nocontam.map 1.05474948883
+chr21.1.1.nocontam.map 1.21166038513
+chr21.0.4.sfq 11.8300189972
+chr21.0.19.nocontam.map 0.876148223877
+chr21.1.0.contam.sfq 6.77068424225
+chr21.1.17.nocontam.fq 4.89815330505
+chr21.0.22.nocontam.bfq 1.19645309448
+chr21.1.14.nocontam.fq 6.24941253662
+chr21.1.12.nocontam.map 2.0167427063
+chr21.1.5.nocontam.map 1.61092567444
+chr21.1.10.sfq 13.6551589966
+chr21.1.22.nocontam.map 1.2482509613
+chr21.0.14.contam.sfq 6.93293476105
+chr21.0.5.nocontam.map 1.79365253448
+chr21.0.16.nocontam.map 1.05032539368
+chr21.0.2.nocontam.bfq 0.940539360046
+chr21.0.10.nocontam.sfq 6.12037563324
+chr21.0.0.contam.sfq 6.65691757202
+chr21.0.7.contam.sfq 6.43116950989
+chr21.0.7.sfq 13.4313211441
+chr21.1.8.contam.sfq 6.85217952728
+chr21.1.2.nocontam.map 1.25286579132
+chr21.0.21.sfq 12.6596622467
+chr21.0.23.nocontam.fq 5.96889781952
+chr21.0.15.nocontam.fq 4.94616127014
+chr21.0.0.nocontam.fq 4.33031272888
+chr21.0.0.nocontam.bfq 1.19806861877
+chr21.0.6.nocontam.sfq 6.47529315948
+chr21.0.9.sfq 13.2570152283
+chr21.0.10.sfq 12.7227191925
+chr21.1.21.nocontam.fq 7.59875965118
+chr21.1.18.nocontam.bfq 1.5322599411
+chr21.0.12.nocontam.bfq 1.39475917816
+chr21.1.7.nocontam.sfq 6.51870727539
+chr21.1.14.sfq 13.0169057846
+chr21.0.15.contam.sfq 6.01598834991
+chr21.0.3.contam.sfq 6.60057353973
+chr21.0.18.nocontam.sfq 6.53022289276
+chr21.1.5.contam.sfq 6.45290756226
+chr21.0.16.sfq 13.261015892
+chr21.1.15.nocontam.bfq 1.41750144958
+chr21.1.4.nocontam.map 1.47220802307
+chr21.1.5.sfq 13.5494832993
+chr21.1.11.nocontam.fq 5.93646526337
+chr21.1.0.nocontam.map 1.65811443329
+chr21.1.20.nocontam.bfq 1.5221824646
+chr21.1.3.nocontam.fq 4.98884487152
+chr21.0.4.contam.sfq 5.67707061768
+chr21.1.6.sfq 13.4487094879
+chr21.1.15.nocontam.sfq 6.8190164566
+chr21.1.23.nocontam.sfq 6.95518302917
+chr21.0.12.nocontam.sfq 6.69032764435
+chr21.0.8.nocontam.map 2.18955993652
+chr21.0.6.contam.sfq 6.08092880249
+chr21.1.14.nocontam.map 1.70244693756
+chr21.1.8.nocontam.fq 4.38370323181
+chr21.1.1.sfq 14.041882515
+chr21.1.21.nocontam.map 2.20028305054
+chr21.0.17.contam.sfq 5.86513710022
+chr21.0.11.contam.sfq 6.33083152771
+chr21.1.17.contam.sfq 6.98219394684
+chr21.0.3.nocontam.bfq 2.22349452972
+chr21.0.10.contam.sfq 6.60234355927
+chr21.0.9.contam.sfq 6.50375843048
+chr21.0.15.sfq 12.5040092468
+chr21.0.22.contam.sfq 5.78061485291
+chr21.1.4.nocontam.sfq 6.63195705414
+chr21.0.19.nocontam.fq 3.52281284332
+chr21.0.17.nocontam.fq 4.87009620667
+chr21.1.1.nocontam.sfq 7.20523357391
+chr21.1.3.nocontam.map 1.2196855545
+chr21.1.3.nocontam.bfq 1.1221113205
+chr21_1.nocontam.map 33.3479890823
+chr21.0.9.nocontam.sfq 6.75325679779
+chr21.0.21.contam.sfq 6.44889259338
+chr21.1.19.contam.sfq 6.72863197327
+chr21.1.18.nocontam.map 1.66549968719
+chr21.1.6.nocontam.bfq 1.06572437286
+chr21.1.3.nocontam.sfq 7.01253318787
+chr21.0.2.nocontam.map 1.02232456207
+chr21.1.16.nocontam.bfq 1.29039382935
+chr21.1.23.nocontam.bfq 1.37828922272
+chr21.1.4.nocontam.fq 4.73765087128
+chr21.0.10.nocontam.fq 3.66318130493
+chr21.0.6.sfq 12.556221962
+chr21.0.7.nocontam.map 1.42911052704
+chr21.0.12.sfq 13.4243946075
+chr21.1.13.nocontam.map 1.657746315
+chr21.1.19.sfq 13.6866703033
+chr21.0.19.nocontam.sfq 6.524102211
+chr21.0.20.nocontam.map 1.26883983612
+chr21.0.5.nocontam.bfq 1.65016078949
+chr21.0.19.sfq 12.6611194611
+chr21.1.11.nocontam.bfq 1.60983371735
+chr21.1.18.sfq 14.7667798996
+chr21.1.15.nocontam.fq 5.69337558746
+chr21.1.12.nocontam.sfq 7.20938587189
+chr21.1.23.nocontam.map 1.49814033508
+chr21.1.22.nocontam.fq 5.0798997879
+chr21.0.23.contam.sfq 6.66018676758
+chr21.0.12.nocontam.fq 5.39547920227
+chr21.1.23.sfq 14.3748207092
+chr21.1.6.nocontam.fq 4.0907793045
+chr21.1.13.contam.sfq 7.22058677673
+chr21.1.9.nocontam.fq 5.18460845947
+chr21.1.6.nocontam.sfq 6.50187397003
+chr21.0.19.contam.sfq 6.13701725006
+chr21.0.18.nocontam.map 1.14422416687
+chr21.0.8.contam.sfq 6.33251285553
+chr21.1.20.nocontam.sfq 6.19291687012
+chr21.nocontam.chr.map 1.08102416992
+chr21.0.16.nocontam.bfq 0.966300010681
+chr21.0.0.sfq 13.0281772614
+chr21.0.13.nocontam.sfq 5.93095207214
+chr21.0.7.nocontam.bfq 1.31478214264
+chr21.1.8.sfq 14.0961351395
+chr21.1.17.nocontam.map 1.33983707428
+chr21.1.20.contam.sfq 6.35369777679
+chr21.1.4.nocontam.bfq 1.35443210602
+chr21.nocontam.map 61.6751346588
+chr21.1.15.nocontam.map 1.54076194763
+chr21.0.1.contam.sfq 6.11859893799
+chr21.1.19.nocontam.bfq 1.01648902893
+chr21.nocontam.map.zr 1.37979125977
+chr21.0.15.nocontam.map 1.48495197296
+chr21.1.20.nocontam.map 1.654545784
+chr21.1.0.nocontam.sfq 7.10447502136
+chr21.1.20.sfq 12.5466146469
+chr21.1.7.nocontam.bfq 1.06327915192
+chr21.0.2.sfq 13.8561677933
+chr21.0.20.nocontam.sfq 7.15518283844
+chr21.1.13.nocontam.fq 5.41986179352
+chr21.0.10.nocontam.bfq 0.97744846344
+chr21.1.15.sfq 14.2351474762
+chr21.0.15.nocontam.sfq 6.48802089691
+chr21.1.5.nocontam.sfq 7.096575737
+chr21.0.13.nocontam.fq 3.65487575531
+chr21.0.21.nocontam.fq 5.29249572754
+chr21.0.2.nocontam.fq 4.39150810242
+chr21.0.3.sfq 12.6532840729
+chr21.1.12.contam.sfq 6.77519321442
+chr21.0.14.sfq 13.5173072815
+chr21.1.2.nocontam.sfq 6.78210544586
+chr21.1.0.nocontam.fq 7.50749111176
+chr21.0.13.nocontam.bfq 0.802125930786
+chr21.0.3.nocontam.map 2.41684150696
+chr21.0.2.contam.sfq 7.16672897339
+chr21.0.7.nocontam.sfq 7.00015163422
+chr21.0.6.nocontam.fq 9.55301761627
+
+ID00019 filterContams_chr21 1.06 1 2
+chr21.0.17.sfq
+chr21.0.17.nocontam.sfq
+chr21.0.17.contam.sfq
+ID00018 filterContams_chr21 2.87 1 2
+chr21.0.16.sfq
+chr21.0.16.nocontam.sfq
+chr21.0.16.contam.sfq
+ID00015 filterContams_chr21 1.47 1 2
+chr21.0.13.sfq
+chr21.0.13.nocontam.sfq
+chr21.0.13.contam.sfq
+ID00014 filterContams_chr21 1.66 1 2
+chr21.0.12.sfq
+chr21.0.12.nocontam.sfq
+chr21.0.12.contam.sfq
+ID00017 filterContams_chr21 1.74 1 2
+chr21.0.15.sfq
+chr21.0.15.nocontam.sfq
+chr21.0.15.contam.sfq
+ID00016 filterContams_chr21 1.91 1 2
+chr21.0.14.sfq
+chr21.0.14.nocontam.sfq
+chr21.0.14.contam.sfq
+ID00011 filterContams_chr21 1.16 1 2
+chr21.0.9.sfq
+chr21.0.9.nocontam.sfq
+chr21.0.9.contam.sfq
+ID00010 filterContams_chr21 1.34 1 2
+chr21.0.8.sfq
+chr21.0.8.nocontam.sfq
+chr21.0.8.contam.sfq
+ID00013 filterContams_chr21 1.2 1 2
+chr21.0.11.sfq
+chr21.0.11.nocontam.sfq
+chr21.0.11.contam.sfq
+ID00012 filterContams_chr21 1.22 1 2
+chr21.0.10.sfq
+chr21.0.10.nocontam.sfq
+chr21.0.10.contam.sfq
+ID00095 sol2sanger_chr21 0.56 1 1
+chr21.1.21.nocontam.sfq
+chr21.1.21.nocontam.fq
+ID00094 sol2sanger_chr21 0.36 1 1
+chr21.1.20.nocontam.sfq
+chr21.1.20.nocontam.fq
+ID00097 sol2sanger_chr21 0.39 1 1
+chr21.1.23.nocontam.sfq
+chr21.1.23.nocontam.fq
+ID00096 sol2sanger_chr21 0.39 1 1
+chr21.1.22.nocontam.sfq
+chr21.1.22.nocontam.fq
+ID00091 sol2sanger_chr21 0.66 1 1
+chr21.1.17.nocontam.sfq
+chr21.1.17.nocontam.fq
+ID00090 sol2sanger_chr21 0.88 1 1
+chr21.1.16.nocontam.sfq
+chr21.1.16.nocontam.fq
+ID00093 sol2sanger_chr21 0.43 1 1
+chr21.1.19.nocontam.sfq
+chr21.1.19.nocontam.fq
+ID00092 sol2sanger_chr21 0.44 1 1
+chr21.1.18.nocontam.sfq
+chr21.1.18.nocontam.fq
+ID00154 map_chr21 5278.5 2 1
+chr21.BS.bfa
+chr21.0.8.nocontam.bfq
+chr21.0.8.nocontam.map
+ID00155 map_chr21 5003.74 2 1
+chr21.BS.bfa
+chr21.0.9.nocontam.bfq
+chr21.0.9.nocontam.map
+ID00156 map_chr21 8695.2 2 1
+chr21.BS.bfa
+chr21.0.10.nocontam.bfq
+chr21.0.10.nocontam.map
+ID00157 map_chr21 6718.04 2 1
+chr21.BS.bfa
+chr21.0.11.nocontam.bfq
+chr21.0.11.nocontam.map
+ID00099 fastq2bfq_chr21 0.75 1 1
+chr21.0.1.nocontam.fq
+chr21.0.1.nocontam.bfq
+ID00098 fastq2bfq_chr21 0.82 1 1
+chr21.0.0.nocontam.fq
+chr21.0.0.nocontam.bfq
+ID00152 map_chr21 3068.89 2 1
+chr21.BS.bfa
+chr21.0.6.nocontam.bfq
+chr21.0.6.nocontam.map
+ID00153 map_chr21 3221.45 2 1
+chr21.BS.bfa
+chr21.0.7.nocontam.bfq
+chr21.0.7.nocontam.map
+ID00123 fastq2bfq_chr21 0.83 1 1
+chr21.1.1.nocontam.fq
+chr21.1.1.nocontam.bfq
+ID00122 fastq2bfq_chr21 1.18 1 1
+chr21.1.0.nocontam.fq
+chr21.1.0.nocontam.bfq
+ID00169 map_chr21 5150.63 2 1
+chr21.BS.bfa
+chr21.0.23.nocontam.bfq
+chr21.0.23.nocontam.map
+ID00168 map_chr21 4872.09 2 1
+chr21.BS.bfa
+chr21.0.22.nocontam.bfq
+chr21.0.22.nocontam.map
+ID00008 filterContams_chr21 2.08 1 2
+chr21.0.6.sfq
+chr21.0.6.nocontam.sfq
+chr21.0.6.contam.sfq
+ID00009 filterContams_chr21 2.25 1 2
+chr21.0.7.sfq
+chr21.0.7.nocontam.sfq
+chr21.0.7.contam.sfq
+ID00002 filterContams_chr21 2.31 1 2
+chr21.0.0.sfq
+chr21.0.0.nocontam.sfq
+chr21.0.0.contam.sfq
+ID00003 filterContams_chr21 2.19 1 2
+chr21.0.1.sfq
+chr21.0.1.nocontam.sfq
+chr21.0.1.contam.sfq
+ID00000 fastqSplit_chr21 29.4 1 24
+chr210.sfq
+chr21.0.0.sfq
+chr21.0.1.sfq
+chr21.0.2.sfq
+chr21.0.3.sfq
+chr21.0.4.sfq
+chr21.0.5.sfq
+chr21.0.6.sfq
+chr21.0.7.sfq
+chr21.0.8.sfq
+chr21.0.9.sfq
+chr21.0.10.sfq
+chr21.0.11.sfq
+chr21.0.12.sfq
+chr21.0.13.sfq
+chr21.0.14.sfq
+chr21.0.15.sfq
+chr21.0.16.sfq
+chr21.0.17.sfq
+chr21.0.18.sfq
+chr21.0.19.sfq
+chr21.0.20.sfq
+chr21.0.21.sfq
+chr21.0.22.sfq
+chr21.0.23.sfq
+ID00001 fastqSplit_chr21 40.0 1 24
+chr211.sfq
+chr21.1.0.sfq
+chr21.1.1.sfq
+chr21.1.2.sfq
+chr21.1.3.sfq
+chr21.1.4.sfq
+chr21.1.5.sfq
+chr21.1.6.sfq
+chr21.1.7.sfq
+chr21.1.8.sfq
+chr21.1.9.sfq
+chr21.1.10.sfq
+chr21.1.11.sfq
+chr21.1.12.sfq
+chr21.1.13.sfq
+chr21.1.14.sfq
+chr21.1.15.sfq
+chr21.1.16.sfq
+chr21.1.17.sfq
+chr21.1.18.sfq
+chr21.1.19.sfq
+chr21.1.20.sfq
+chr21.1.21.sfq
+chr21.1.22.sfq
+chr21.1.23.sfq
+ID00006 filterContams_chr21 1.54 1 2
+chr21.0.4.sfq
+chr21.0.4.nocontam.sfq
+chr21.0.4.contam.sfq
+ID00007 filterContams_chr21 2.05 1 2
+chr21.0.5.sfq
+chr21.0.5.nocontam.sfq
+chr21.0.5.contam.sfq
+ID00004 filterContams_chr21 1.29 1 2
+chr21.0.2.sfq
+chr21.0.2.nocontam.sfq
+chr21.0.2.contam.sfq
+ID00005 filterContams_chr21 1.19 1 2
+chr21.0.3.sfq
+chr21.0.3.nocontam.sfq
+chr21.0.3.contam.sfq
+ID00082 sol2sanger_chr21 0.41 1 1
+chr21.1.8.nocontam.sfq
+chr21.1.8.nocontam.fq
+ID00083 sol2sanger_chr21 0.58 1 1
+chr21.1.9.nocontam.sfq
+chr21.1.9.nocontam.fq
+ID00080 sol2sanger_chr21 0.56 1 1
+chr21.1.6.nocontam.sfq
+chr21.1.6.nocontam.fq
+ID00081 sol2sanger_chr21 0.59 1 1
+chr21.1.7.nocontam.sfq
+chr21.1.7.nocontam.fq
+ID00086 sol2sanger_chr21 0.65 1 1
+chr21.1.12.nocontam.sfq
+chr21.1.12.nocontam.fq
+ID00087 sol2sanger_chr21 0.44 1 1
+chr21.1.13.nocontam.sfq
+chr21.1.13.nocontam.fq
+ID00084 sol2sanger_chr21 0.53 1 1
+chr21.1.10.nocontam.sfq
+chr21.1.10.nocontam.fq
+ID00085 sol2sanger_chr21 0.48 1 1
+chr21.1.11.nocontam.sfq
+chr21.1.11.nocontam.fq
+ID00161 map_chr21 3564.38 2 1
+chr21.BS.bfa
+chr21.0.15.nocontam.bfq
+chr21.0.15.nocontam.map
+ID00160 map_chr21 4879.23 2 1
+chr21.BS.bfa
+chr21.0.14.nocontam.bfq
+chr21.0.14.nocontam.map
+ID00088 sol2sanger_chr21 0.61 1 1
+chr21.1.14.nocontam.sfq
+chr21.1.14.nocontam.fq
+ID00089 sol2sanger_chr21 0.6 1 1
+chr21.1.15.nocontam.sfq
+chr21.1.15.nocontam.fq
+ID00165 map_chr21 3083.34 2 1
+chr21.BS.bfa
+chr21.0.19.nocontam.bfq
+chr21.0.19.nocontam.map
+ID00164 map_chr21 6508.18 2 1
+chr21.BS.bfa
+chr21.0.18.nocontam.bfq
+chr21.0.18.nocontam.map
+ID00167 map_chr21 5106.69 2 1
+chr21.BS.bfa
+chr21.0.21.nocontam.bfq
+chr21.0.21.nocontam.map
+ID00166 map_chr21 4790.9 2 1
+chr21.BS.bfa
+chr21.0.20.nocontam.bfq
+chr21.0.20.nocontam.map
+ID00163 map_chr21 3199.02 2 1
+chr21.BS.bfa
+chr21.0.17.nocontam.bfq
+chr21.0.17.nocontam.map
+ID00162 map_chr21 4203.52 2 1
+chr21.BS.bfa
+chr21.0.16.nocontam.bfq
+chr21.0.16.nocontam.map
+ID00176 map_chr21 5303.1 2 1
+chr21.BS.bfa
+chr21.1.6.nocontam.bfq
+chr21.1.6.nocontam.map
+ID00177 map_chr21 4342.76 2 1
+chr21.BS.bfa
+chr21.1.7.nocontam.bfq
+chr21.1.7.nocontam.map
+ID00174 map_chr21 6110.49 2 1
+chr21.BS.bfa
+chr21.1.4.nocontam.bfq
+chr21.1.4.nocontam.map
+ID00175 map_chr21 3579.76 2 1
+chr21.BS.bfa
+chr21.1.5.nocontam.bfq
+chr21.1.5.nocontam.map
+ID00172 map_chr21 3051.07 2 1
+chr21.BS.bfa
+chr21.1.2.nocontam.bfq
+chr21.1.2.nocontam.map
+ID00173 map_chr21 4357.16 2 1
+chr21.BS.bfa
+chr21.1.3.nocontam.bfq
+chr21.1.3.nocontam.map
+ID00170 map_chr21 4072.0 2 1
+chr21.BS.bfa
+chr21.1.0.nocontam.bfq
+chr21.1.0.nocontam.map
+ID00171 map_chr21 5581.55 2 1
+chr21.BS.bfa
+chr21.1.1.nocontam.bfq
+chr21.1.1.nocontam.map
+ID00178 map_chr21 5389.04 2 1
+chr21.BS.bfa
+chr21.1.8.nocontam.bfq
+chr21.1.8.nocontam.map
+ID00179 map_chr21 5424.0 2 1
+chr21.BS.bfa
+chr21.1.9.nocontam.bfq
+chr21.1.9.nocontam.map
+ID00079 sol2sanger_chr21 0.46 1 1
+chr21.1.5.nocontam.sfq
+chr21.1.5.nocontam.fq
+ID00078 sol2sanger_chr21 0.39 1 1
+chr21.1.4.nocontam.sfq
+chr21.1.4.nocontam.fq
+ID00077 sol2sanger_chr21 0.41 1 1
+chr21.1.3.nocontam.sfq
+chr21.1.3.nocontam.fq
+ID00076 sol2sanger_chr21 0.47 1 1
+chr21.1.2.nocontam.sfq
+chr21.1.2.nocontam.fq
+ID00075 sol2sanger_chr21 0.67 1 1
+chr21.1.1.nocontam.sfq
+chr21.1.1.nocontam.fq
+ID00074 sol2sanger_chr21 0.41 1 1
+chr21.1.0.nocontam.sfq
+chr21.1.0.nocontam.fq
+ID00073 sol2sanger_chr21 0.71 1 1
+chr21.0.23.nocontam.sfq
+chr21.0.23.nocontam.fq
+ID00072 sol2sanger_chr21 0.33 1 1
+chr21.0.22.nocontam.sfq
+chr21.0.22.nocontam.fq
+ID00071 sol2sanger_chr21 0.67 1 1
+chr21.0.21.nocontam.sfq
+chr21.0.21.nocontam.fq
+ID00070 sol2sanger_chr21 0.66 1 1
+chr21.0.20.nocontam.sfq
+chr21.0.20.nocontam.fq
+ID00103 fastq2bfq_chr21 0.89 1 1
+chr21.0.5.nocontam.fq
+chr21.0.5.nocontam.bfq
+ID00102 fastq2bfq_chr21 0.71 1 1
+chr21.0.4.nocontam.fq
+chr21.0.4.nocontam.bfq
+ID00101 fastq2bfq_chr21 1.26 1 1
+chr21.0.3.nocontam.fq
+chr21.0.3.nocontam.bfq
+ID00100 fastq2bfq_chr21 1.26 1 1
+chr21.0.2.nocontam.fq
+chr21.0.2.nocontam.bfq
+ID00107 fastq2bfq_chr21 0.9 1 1
+chr21.0.9.nocontam.fq
+chr21.0.9.nocontam.bfq
+ID00106 fastq2bfq_chr21 1.21 1 1
+chr21.0.8.nocontam.fq
+chr21.0.8.nocontam.bfq
+ID00105 fastq2bfq_chr21 1.2 1 1
+chr21.0.7.nocontam.fq
+chr21.0.7.nocontam.bfq
+ID00104 fastq2bfq_chr21 1.37 1 1
+chr21.0.6.nocontam.fq
+chr21.0.6.nocontam.bfq
+ID00158 map_chr21 3880.73 2 1
+chr21.BS.bfa
+chr21.0.12.nocontam.bfq
+chr21.0.12.nocontam.map
+ID00109 fastq2bfq_chr21 0.53 1 1
+chr21.0.11.nocontam.fq
+chr21.0.11.nocontam.bfq
+ID00108 fastq2bfq_chr21 0.75 1 1
+chr21.0.10.nocontam.fq
+chr21.0.10.nocontam.bfq
+ID00159 map_chr21 5058.31 2 1
+chr21.BS.bfa
+chr21.0.13.nocontam.bfq
+chr21.0.13.nocontam.map
+ID00068 sol2sanger_chr21 0.36 1 1
+chr21.0.18.nocontam.sfq
+chr21.0.18.nocontam.fq
+ID00069 sol2sanger_chr21 0.64 1 1
+chr21.0.19.nocontam.sfq
+chr21.0.19.nocontam.fq
+ID00064 sol2sanger_chr21 0.33 1 1
+chr21.0.14.nocontam.sfq
+chr21.0.14.nocontam.fq
+ID00065 sol2sanger_chr21 0.51 1 1
+chr21.0.15.nocontam.sfq
+chr21.0.15.nocontam.fq
+ID00066 sol2sanger_chr21 0.35 1 1
+chr21.0.16.nocontam.sfq
+chr21.0.16.nocontam.fq
+ID00067 sol2sanger_chr21 0.51 1 1
+chr21.0.17.nocontam.sfq
+chr21.0.17.nocontam.fq
+ID00060 sol2sanger_chr21 0.41 1 1
+chr21.0.10.nocontam.sfq
+chr21.0.10.nocontam.fq
+ID00061 sol2sanger_chr21 0.49 1 1
+chr21.0.11.nocontam.sfq
+chr21.0.11.nocontam.fq
+ID00062 sol2sanger_chr21 0.39 1 1
+chr21.0.12.nocontam.sfq
+chr21.0.12.nocontam.fq
+ID00063 sol2sanger_chr21 0.36 1 1
+chr21.0.13.nocontam.sfq
+chr21.0.13.nocontam.fq
+ID00189 map_chr21 3398.81 2 1
+chr21.BS.bfa
+chr21.1.19.nocontam.bfq
+chr21.1.19.nocontam.map
+ID00188 map_chr21 4392.02 2 1
+chr21.BS.bfa
+chr21.1.18.nocontam.bfq
+chr21.1.18.nocontam.map
+ID00183 map_chr21 3508.61 2 1
+chr21.BS.bfa
+chr21.1.13.nocontam.bfq
+chr21.1.13.nocontam.map
+ID00182 map_chr21 3238.89 2 1
+chr21.BS.bfa
+chr21.1.12.nocontam.bfq
+chr21.1.12.nocontam.map
+ID00181 map_chr21 7985.82 2 1
+chr21.BS.bfa
+chr21.1.11.nocontam.bfq
+chr21.1.11.nocontam.map
+ID00180 map_chr21 4049.5 2 1
+chr21.BS.bfa
+chr21.1.10.nocontam.bfq
+chr21.1.10.nocontam.map
+ID00187 map_chr21 3219.56 2 1
+chr21.BS.bfa
+chr21.1.17.nocontam.bfq
+chr21.1.17.nocontam.map
+ID00186 map_chr21 4078.85 2 1
+chr21.BS.bfa
+chr21.1.16.nocontam.bfq
+chr21.1.16.nocontam.map
+ID00185 map_chr21 3479.23 2 1
+chr21.BS.bfa
+chr21.1.15.nocontam.bfq
+chr21.1.15.nocontam.map
+ID00184 map_chr21 4487.16 2 1
+chr21.BS.bfa
+chr21.1.14.nocontam.bfq
+chr21.1.14.nocontam.map
+ID00150 map_chr21 4373.41 2 1
+chr21.BS.bfa
+chr21.0.4.nocontam.bfq
+chr21.0.4.nocontam.map
+ID00151 map_chr21 4688.94 2 1
+chr21.BS.bfa
+chr21.0.5.nocontam.bfq
+chr21.0.5.nocontam.map
+ID00110 fastq2bfq_chr21 0.69 1 1
+chr21.0.12.nocontam.fq
+chr21.0.12.nocontam.bfq
+ID00111 fastq2bfq_chr21 0.87 1 1
+chr21.0.13.nocontam.fq
+chr21.0.13.nocontam.bfq
+ID00112 fastq2bfq_chr21 0.78 1 1
+chr21.0.14.nocontam.fq
+chr21.0.14.nocontam.bfq
+ID00113 fastq2bfq_chr21 0.81 1 1
+chr21.0.15.nocontam.fq
+chr21.0.15.nocontam.bfq
+ID00114 fastq2bfq_chr21 0.74 1 1
+chr21.0.16.nocontam.fq
+chr21.0.16.nocontam.bfq
+ID00115 fastq2bfq_chr21 0.65 1 1
+chr21.0.17.nocontam.fq
+chr21.0.17.nocontam.bfq
+ID00116 fastq2bfq_chr21 0.83 1 1
+chr21.0.18.nocontam.fq
+chr21.0.18.nocontam.bfq
+ID00117 fastq2bfq_chr21 0.69 1 1
+chr21.0.19.nocontam.fq
+chr21.0.19.nocontam.bfq
+ID00118 fastq2bfq_chr21 0.81 1 1
+chr21.0.20.nocontam.fq
+chr21.0.20.nocontam.bfq
+ID00119 fastq2bfq_chr21 1.0 1 1
+chr21.0.21.nocontam.fq
+chr21.0.21.nocontam.bfq
+ID00059 sol2sanger_chr21 0.6 1 1
+chr21.0.9.nocontam.sfq
+chr21.0.9.nocontam.fq
+ID00058 sol2sanger_chr21 0.58 1 1
+chr21.0.8.nocontam.sfq
+chr21.0.8.nocontam.fq
+ID00051 sol2sanger_chr21 0.43 1 1
+chr21.0.1.nocontam.sfq
+chr21.0.1.nocontam.fq
+ID00050 sol2sanger_chr21 0.44 1 1
+chr21.0.0.nocontam.sfq
+chr21.0.0.nocontam.fq
+ID00053 sol2sanger_chr21 0.49 1 1
+chr21.0.3.nocontam.sfq
+chr21.0.3.nocontam.fq
+ID00052 sol2sanger_chr21 0.58 1 1
+chr21.0.2.nocontam.sfq
+chr21.0.2.nocontam.fq
+ID00055 sol2sanger_chr21 0.45 1 1
+chr21.0.5.nocontam.sfq
+chr21.0.5.nocontam.fq
+ID00054 sol2sanger_chr21 0.39 1 1
+chr21.0.4.nocontam.sfq
+chr21.0.4.nocontam.fq
+ID00057 sol2sanger_chr21 0.53 1 1
+chr21.0.7.nocontam.sfq
+chr21.0.7.nocontam.fq
+ID00056 sol2sanger_chr21 0.38 1 1
+chr21.0.6.nocontam.sfq
+chr21.0.6.nocontam.fq
+ID00198 pileup_chr21 1836.98 2 1
+chr21.BSnull.bfa
+chr21.nocontam.chr.map
+chr21.nocontam.chr.pileup
+ID00190 map_chr21 6042.25 2 1
+chr21.BS.bfa
+chr21.1.20.nocontam.bfq
+chr21.1.20.nocontam.map
+ID00191 map_chr21 5055.18 2 1
+chr21.BS.bfa
+chr21.1.21.nocontam.bfq
+chr21.1.21.nocontam.map
+ID00192 map_chr21 6634.95 2 1
+chr21.BS.bfa
+chr21.1.22.nocontam.bfq
+chr21.1.22.nocontam.map
+ID00193 map_chr21 4017.78 2 1
+chr21.BS.bfa
+chr21.1.23.nocontam.bfq
+chr21.1.23.nocontam.map
+ID00194 mapMerge_chr21 15.9 24 1
+chr21.0.0.nocontam.map
+chr21.0.1.nocontam.map
+chr21.0.2.nocontam.map
+chr21.0.3.nocontam.map
+chr21.0.4.nocontam.map
+chr21.0.5.nocontam.map
+chr21.0.6.nocontam.map
+chr21.0.7.nocontam.map
+chr21.0.8.nocontam.map
+chr21.0.9.nocontam.map
+chr21.0.10.nocontam.map
+chr21.0.11.nocontam.map
+chr21.0.12.nocontam.map
+chr21.0.13.nocontam.map
+chr21.0.14.nocontam.map
+chr21.0.15.nocontam.map
+chr21.0.16.nocontam.map
+chr21.0.17.nocontam.map
+chr21.0.18.nocontam.map
+chr21.0.19.nocontam.map
+chr21.0.20.nocontam.map
+chr21.0.21.nocontam.map
+chr21.0.22.nocontam.map
+chr21.0.23.nocontam.map
+chr21_0.nocontam.map
+ID00195 mapMerge_chr21 15.87 24 1
+chr21.1.0.nocontam.map
+chr21.1.1.nocontam.map
+chr21.1.2.nocontam.map
+chr21.1.3.nocontam.map
+chr21.1.4.nocontam.map
+chr21.1.5.nocontam.map
+chr21.1.6.nocontam.map
+chr21.1.7.nocontam.map
+chr21.1.8.nocontam.map
+chr21.1.9.nocontam.map
+chr21.1.10.nocontam.map
+chr21.1.11.nocontam.map
+chr21.1.12.nocontam.map
+chr21.1.13.nocontam.map
+chr21.1.14.nocontam.map
+chr21.1.15.nocontam.map
+chr21.1.16.nocontam.map
+chr21.1.17.nocontam.map
+chr21.1.18.nocontam.map
+chr21.1.19.nocontam.map
+chr21.1.20.nocontam.map
+chr21.1.21.nocontam.map
+chr21.1.22.nocontam.map
+chr21.1.23.nocontam.map
+chr21_1.nocontam.map
+ID00196 mapMerge_chr21 25.64 2 3
+chr21_0.nocontam.map
+chr21_1.nocontam.map
+chr21.nocontam.map
+chr21.nocontam.map.zr
+chr21.nocontam.map.vm
+ID00197 maqindex_chr21 0.04 1 1
+chr21.nocontam.map
+chr21.nocontam.chr.map
+ID00046 filterContams_chr21 1.73 1 2
+chr21.1.20.sfq
+chr21.1.20.nocontam.sfq
+chr21.1.20.contam.sfq
+ID00047 filterContams_chr21 1.53 1 2
+chr21.1.21.sfq
+chr21.1.21.nocontam.sfq
+chr21.1.21.contam.sfq
+ID00044 filterContams_chr21 1.36 1 2
+chr21.1.18.sfq
+chr21.1.18.nocontam.sfq
+chr21.1.18.contam.sfq
+ID00045 filterContams_chr21 1.31 1 2
+chr21.1.19.sfq
+chr21.1.19.nocontam.sfq
+chr21.1.19.contam.sfq
+ID00042 filterContams_chr21 1.27 1 2
+chr21.1.16.sfq
+chr21.1.16.nocontam.sfq
+chr21.1.16.contam.sfq
+ID00043 filterContams_chr21 1.44 1 2
+chr21.1.17.sfq
+chr21.1.17.nocontam.sfq
+chr21.1.17.contam.sfq
+ID00040 filterContams_chr21 1.61 1 2
+chr21.1.14.sfq
+chr21.1.14.nocontam.sfq
+chr21.1.14.contam.sfq
+ID00041 filterContams_chr21 1.56 1 2
+chr21.1.15.sfq
+chr21.1.15.nocontam.sfq
+chr21.1.15.contam.sfq
+ID00125 fastq2bfq_chr21 0.86 1 1
+chr21.1.3.nocontam.fq
+chr21.1.3.nocontam.bfq
+ID00124 fastq2bfq_chr21 0.71 1 1
+chr21.1.2.nocontam.fq
+chr21.1.2.nocontam.bfq
+ID00127 fastq2bfq_chr21 0.89 1 1
+chr21.1.5.nocontam.fq
+chr21.1.5.nocontam.bfq
+ID00126 fastq2bfq_chr21 0.83 1 1
+chr21.1.4.nocontam.fq
+chr21.1.4.nocontam.bfq
+ID00121 fastq2bfq_chr21 0.89 1 1
+chr21.0.23.nocontam.fq
+chr21.0.23.nocontam.bfq
+ID00120 fastq2bfq_chr21 0.74 1 1
+chr21.0.22.nocontam.fq
+chr21.0.22.nocontam.bfq
+ID00048 filterContams_chr21 2.67 1 2
+chr21.1.22.sfq
+chr21.1.22.nocontam.sfq
+chr21.1.22.contam.sfq
+ID00049 filterContams_chr21 1.26 1 2
+chr21.1.23.sfq
+chr21.1.23.nocontam.sfq
+chr21.1.23.contam.sfq
+ID00138 fastq2bfq_chr21 0.91 1 1
+chr21.1.16.nocontam.fq
+chr21.1.16.nocontam.bfq
+ID00139 fastq2bfq_chr21 0.66 1 1
+chr21.1.17.nocontam.fq
+chr21.1.17.nocontam.bfq
+ID00033 filterContams_chr21 1.4 1 2
+chr21.1.7.sfq
+chr21.1.7.nocontam.sfq
+chr21.1.7.contam.sfq
+ID00032 filterContams_chr21 1.59 1 2
+chr21.1.6.sfq
+chr21.1.6.nocontam.sfq
+chr21.1.6.contam.sfq
+ID00031 filterContams_chr21 1.98 1 2
+chr21.1.5.sfq
+chr21.1.5.nocontam.sfq
+chr21.1.5.contam.sfq
+ID00030 filterContams_chr21 1.56 1 2
+chr21.1.4.sfq
+chr21.1.4.nocontam.sfq
+chr21.1.4.contam.sfq
+ID00037 filterContams_chr21 1.12 1 2
+chr21.1.11.sfq
+chr21.1.11.nocontam.sfq
+chr21.1.11.contam.sfq
+ID00036 filterContams_chr21 3.17 1 2
+chr21.1.10.sfq
+chr21.1.10.nocontam.sfq
+chr21.1.10.contam.sfq
+ID00035 filterContams_chr21 1.89 1 2
+chr21.1.9.sfq
+chr21.1.9.nocontam.sfq
+chr21.1.9.contam.sfq
+ID00034 filterContams_chr21 1.25 1 2
+chr21.1.8.sfq
+chr21.1.8.nocontam.sfq
+chr21.1.8.contam.sfq
+ID00132 fastq2bfq_chr21 1.03 1 1
+chr21.1.10.nocontam.fq
+chr21.1.10.nocontam.bfq
+ID00133 fastq2bfq_chr21 0.99 1 1
+chr21.1.11.nocontam.fq
+chr21.1.11.nocontam.bfq
+ID00039 filterContams_chr21 2.22 1 2
+chr21.1.13.sfq
+chr21.1.13.nocontam.sfq
+chr21.1.13.contam.sfq
+ID00038 filterContams_chr21 3.11 1 2
+chr21.1.12.sfq
+chr21.1.12.nocontam.sfq
+chr21.1.12.contam.sfq
+ID00136 fastq2bfq_chr21 1.26 1 1
+chr21.1.14.nocontam.fq
+chr21.1.14.nocontam.bfq
+ID00130 fastq2bfq_chr21 0.64 1 1
+chr21.1.8.nocontam.fq
+chr21.1.8.nocontam.bfq
+ID00134 fastq2bfq_chr21 0.87 1 1
+chr21.1.12.nocontam.fq
+chr21.1.12.nocontam.bfq
+ID00135 fastq2bfq_chr21 0.87 1 1
+chr21.1.13.nocontam.fq
+chr21.1.13.nocontam.bfq
+ID00131 fastq2bfq_chr21 0.83 1 1
+chr21.1.9.nocontam.fq
+chr21.1.9.nocontam.bfq
+ID00137 fastq2bfq_chr21 0.86 1 1
+chr21.1.15.nocontam.fq
+chr21.1.15.nocontam.bfq
+ID00020 filterContams_chr21 3.09 1 2
+chr21.0.18.sfq
+chr21.0.18.nocontam.sfq
+chr21.0.18.contam.sfq
+ID00021 filterContams_chr21 1.25 1 2
+chr21.0.19.sfq
+chr21.0.19.nocontam.sfq
+chr21.0.19.contam.sfq
+ID00022 filterContams_chr21 1.56 1 2
+chr21.0.20.sfq
+chr21.0.20.nocontam.sfq
+chr21.0.20.contam.sfq
+ID00023 filterContams_chr21 1.47 1 2
+chr21.0.21.sfq
+chr21.0.21.nocontam.sfq
+chr21.0.21.contam.sfq
+ID00024 filterContams_chr21 1.24 1 2
+chr21.0.22.sfq
+chr21.0.22.nocontam.sfq
+chr21.0.22.contam.sfq
+ID00025 filterContams_chr21 3.14 1 2
+chr21.0.23.sfq
+chr21.0.23.nocontam.sfq
+chr21.0.23.contam.sfq
+ID00026 filterContams_chr21 1.86 1 2
+chr21.1.0.sfq
+chr21.1.0.nocontam.sfq
+chr21.1.0.contam.sfq
+ID00027 filterContams_chr21 1.25 1 2
+chr21.1.1.sfq
+chr21.1.1.nocontam.sfq
+chr21.1.1.contam.sfq
+ID00028 filterContams_chr21 1.26 1 2
+chr21.1.2.sfq
+chr21.1.2.nocontam.sfq
+chr21.1.2.contam.sfq
+ID00029 filterContams_chr21 1.98 1 2
+chr21.1.3.sfq
+chr21.1.3.nocontam.sfq
+chr21.1.3.contam.sfq
+ID00149 map_chr21 4920.43 2 1
+chr21.BS.bfa
+chr21.0.3.nocontam.bfq
+chr21.0.3.nocontam.map
+ID00148 map_chr21 6676.72 2 1
+chr21.BS.bfa
+chr21.0.2.nocontam.bfq
+chr21.0.2.nocontam.map
+ID00147 map_chr21 6839.25 2 1
+chr21.BS.bfa
+chr21.0.1.nocontam.bfq
+chr21.0.1.nocontam.map
+ID00146 map_chr21 4724.76 2 1
+chr21.BS.bfa
+chr21.0.0.nocontam.bfq
+chr21.0.0.nocontam.map
+ID00145 fastq2bfq_chr21 0.77 1 1
+chr21.1.23.nocontam.fq
+chr21.1.23.nocontam.bfq
+ID00144 fastq2bfq_chr21 0.94 1 1
+chr21.1.22.nocontam.fq
+chr21.1.22.nocontam.bfq
+ID00143 fastq2bfq_chr21 1.48 1 1
+chr21.1.21.nocontam.fq
+chr21.1.21.nocontam.bfq
+ID00142 fastq2bfq_chr21 1.0 1 1
+chr21.1.20.nocontam.fq
+chr21.1.20.nocontam.bfq
+ID00141 fastq2bfq_chr21 0.74 1 1
+chr21.1.19.nocontam.fq
+chr21.1.19.nocontam.bfq
+ID00140 fastq2bfq_chr21 0.73 1 1
+chr21.1.18.nocontam.fq
+chr21.1.18.nocontam.bfq
+ID00129 fastq2bfq_chr21 0.82 1 1
+chr21.1.7.nocontam.fq
+chr21.1.7.nocontam.bfq
+ID00128 fastq2bfq_chr21 0.64 1 1
+chr21.1.6.nocontam.fq
+chr21.1.6.nocontam.bfq
+
+ID00000 24
+ID00019
+ID00018
+ID00015
+ID00014
+ID00017
+ID00016
+ID00011
+ID00010
+ID00013
+ID00012
+ID00008
+ID00009
+ID00002
+ID00003
+ID00006
+ID00007
+ID00004
+ID00005
+ID00020
+ID00021
+ID00022
+ID00023
+ID00024
+ID00025
+ID00001 24
+ID00046
+ID00047
+ID00044
+ID00045
+ID00042
+ID00043
+ID00040
+ID00041
+ID00048
+ID00049
+ID00033
+ID00032
+ID00031
+ID00030
+ID00037
+ID00036
+ID00035
+ID00034
+ID00039
+ID00038
+ID00026
+ID00027
+ID00028
+ID00029
+ID00019 1
+ID00067
+ID00018 1
+ID00066
+ID00015 1
+ID00063
+ID00014 1
+ID00062
+ID00017 1
+ID00065
+ID00016 1
+ID00064
+ID00011 1
+ID00059
+ID00010 1
+ID00058
+ID00013 1
+ID00061
+ID00012 1
+ID00060
+ID00008 1
+ID00056
+ID00009 1
+ID00057
+ID00002 1
+ID00050
+ID00003 1
+ID00051
+ID00006 1
+ID00054
+ID00007 1
+ID00055
+ID00004 1
+ID00052
+ID00005 1
+ID00053
+ID00020 1
+ID00068
+ID00021 1
+ID00069
+ID00022 1
+ID00070
+ID00023 1
+ID00071
+ID00024 1
+ID00072
+ID00025 1
+ID00073
+ID00046 1
+ID00094
+ID00047 1
+ID00095
+ID00044 1
+ID00092
+ID00045 1
+ID00093
+ID00042 1
+ID00090
+ID00043 1
+ID00091
+ID00040 1
+ID00088
+ID00041 1
+ID00089
+ID00048 1
+ID00096
+ID00049 1
+ID00097
+ID00033 1
+ID00081
+ID00032 1
+ID00080
+ID00031 1
+ID00079
+ID00030 1
+ID00078
+ID00037 1
+ID00085
+ID00036 1
+ID00084
+ID00035 1
+ID00083
+ID00034 1
+ID00082
+ID00039 1
+ID00087
+ID00038 1
+ID00086
+ID00026 1
+ID00074
+ID00027 1
+ID00075
+ID00028 1
+ID00076
+ID00029 1
+ID00077
+ID00067 1
+ID00115
+ID00066 1
+ID00114
+ID00063 1
+ID00111
+ID00062 1
+ID00110
+ID00065 1
+ID00113
+ID00064 1
+ID00112
+ID00059 1
+ID00107
+ID00058 1
+ID00106
+ID00061 1
+ID00109
+ID00060 1
+ID00108
+ID00056 1
+ID00104
+ID00057 1
+ID00105
+ID00050 1
+ID00098
+ID00051 1
+ID00099
+ID00054 1
+ID00102
+ID00055 1
+ID00103
+ID00052 1
+ID00100
+ID00053 1
+ID00101
+ID00068 1
+ID00116
+ID00069 1
+ID00117
+ID00070 1
+ID00118
+ID00071 1
+ID00119
+ID00072 1
+ID00120
+ID00073 1
+ID00121
+ID00094 1
+ID00142
+ID00095 1
+ID00143
+ID00092 1
+ID00140
+ID00093 1
+ID00141
+ID00090 1
+ID00138
+ID00091 1
+ID00139
+ID00088 1
+ID00136
+ID00089 1
+ID00137
+ID00096 1
+ID00144
+ID00097 1
+ID00145
+ID00081 1
+ID00129
+ID00080 1
+ID00128
+ID00079 1
+ID00127
+ID00078 1
+ID00126
+ID00085 1
+ID00133
+ID00084 1
+ID00132
+ID00083 1
+ID00131
+ID00082 1
+ID00130
+ID00087 1
+ID00135
+ID00086 1
+ID00134
+ID00074 1
+ID00122
+ID00075 1
+ID00123
+ID00076 1
+ID00124
+ID00077 1
+ID00125
+ID00115 1
+ID00163
+ID00114 1
+ID00162
+ID00111 1
+ID00159
+ID00110 1
+ID00158
+ID00113 1
+ID00161
+ID00112 1
+ID00160
+ID00107 1
+ID00155
+ID00106 1
+ID00154
+ID00109 1
+ID00157
+ID00108 1
+ID00156
+ID00104 1
+ID00152
+ID00105 1
+ID00153
+ID00098 1
+ID00146
+ID00099 1
+ID00147
+ID00102 1
+ID00150
+ID00103 1
+ID00151
+ID00100 1
+ID00148
+ID00101 1
+ID00149
+ID00116 1
+ID00164
+ID00117 1
+ID00165
+ID00118 1
+ID00166
+ID00119 1
+ID00167
+ID00120 1
+ID00168
+ID00121 1
+ID00169
+ID00142 1
+ID00190
+ID00143 1
+ID00191
+ID00140 1
+ID00188
+ID00141 1
+ID00189
+ID00138 1
+ID00186
+ID00139 1
+ID00187
+ID00136 1
+ID00184
+ID00137 1
+ID00185
+ID00144 1
+ID00192
+ID00145 1
+ID00193
+ID00129 1
+ID00177
+ID00128 1
+ID00176
+ID00127 1
+ID00175
+ID00126 1
+ID00174
+ID00133 1
+ID00181
+ID00132 1
+ID00180
+ID00131 1
+ID00179
+ID00130 1
+ID00178
+ID00135 1
+ID00183
+ID00134 1
+ID00182
+ID00122 1
+ID00170
+ID00123 1
+ID00171
+ID00124 1
+ID00172
+ID00125 1
+ID00173
+ID00163 1
+ID00194
+ID00162 1
+ID00194
+ID00159 1
+ID00194
+ID00158 1
+ID00194
+ID00161 1
+ID00194
+ID00160 1
+ID00194
+ID00155 1
+ID00194
+ID00154 1
+ID00194
+ID00157 1
+ID00194
+ID00156 1
+ID00194
+ID00152 1
+ID00194
+ID00153 1
+ID00194
+ID00146 1
+ID00194
+ID00147 1
+ID00194
+ID00150 1
+ID00194
+ID00151 1
+ID00194
+ID00148 1
+ID00194
+ID00149 1
+ID00194
+ID00164 1
+ID00194
+ID00165 1
+ID00194
+ID00166 1
+ID00194
+ID00167 1
+ID00194
+ID00168 1
+ID00194
+ID00169 1
+ID00194
+ID00190 1
+ID00195
+ID00191 1
+ID00195
+ID00188 1
+ID00195
+ID00189 1
+ID00195
+ID00186 1
+ID00195
+ID00187 1
+ID00195
+ID00184 1
+ID00195
+ID00185 1
+ID00195
+ID00192 1
+ID00195
+ID00193 1
+ID00195
+ID00177 1
+ID00195
+ID00176 1
+ID00195
+ID00175 1
+ID00195
+ID00174 1
+ID00195
+ID00181 1
+ID00195
+ID00180 1
+ID00195
+ID00179 1
+ID00195
+ID00178 1
+ID00195
+ID00183 1
+ID00195
+ID00182 1
+ID00195
+ID00170 1
+ID00195
+ID00171 1
+ID00195
+ID00172 1
+ID00195
+ID00173 1
+ID00195
+ID00194 1
+ID00196
+ID00195 1
+ID00196
+ID00196 1
+ID00197
+ID00197 1
+ID00198
+ID00198 0
