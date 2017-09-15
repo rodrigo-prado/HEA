@@ -2,4 +2,4 @@
 
 (cd build; cmake ../; make; mv HEA ../bin/)
 
-echo "\n\nThe exec file was written in the folder bin/"
+# If everything is ok, the exec file will be written on folder .bin/

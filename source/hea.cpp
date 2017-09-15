@@ -293,100 +293,6 @@ inline Chromosome localSearchN3(const Data data, Chromosome ch) {
     return old_ch;
 }
 
-/*
-// N4 = move task - reorganize files
-inline Chromosome localSearchN4(const Data data, Chromosome ch){
-
-    // for each task, do:
-    for(int i = 0; i < data.task_size; i++){
-        if(i != data.id_sink && i != data.id_root) {
-            Chromosome aux_ch(ch);
-            auto task = data.task_map.find(i)->second;
-
-            int old_vm = ch.allocation[task.id];
-
-            for (int j = 0; j < data.vm_size; j++) {
-                if( j != old_vm) {
-                    aux_ch.allocation[task.id] = j;
-                    for (auto out_file : task.output)
-                        aux_ch.allocation[out_file] = j;
-                    aux_ch.computeFitness(true, true);
-                    if (aux_ch.fitness < ch.fitness) {
-                        mtf_hit += 1;
-                        return aux_ch;
-                    }
-                }
-            }
-        }
-    }
-    mtf_miss += 1;
-    return ch;
-
-}
-
-// N5 File best local place.
-inline Chromosome localSearchN5(const Data data, Chromosome chr){
-    auto old_fit = chr.fitness;
-    Chromosome best_chr(chr);
-
-    for(int i = data.task_size; i < data.size; i++){//for each dynamic file, do:
-        //get file
-        auto file = data.file_map.find(i)->second;
-
-        vector<int> aux_vet(data.vm_size, -1);
-
-
-        for(auto task_id : file.all_tasks){//for each task
-            auto vm_id = chr.allocation[task_id];
-            if(aux_vet[vm_id] == -1){//vm not checked
-                aux_vet[vm_id] = 0;
-                chr.allocation[file.id] = vm_id;
-                chr.computeFitness(true, true);
-                if(best_chr.fitness > chr.fitness)
-                     //return best_chr = chr;
-                    return chr;
-            }
-        }
-    }
-    if(old_fit > best_chr.fitness)
-        fr_hit +=1;
-    else
-        fr_miss += 1;
-
-    return best_chr;
-
-}
-
-// N6 MOVE Vm Queue Objects.
-inline Chromosome localSearchN6(const Data data, Chromosome chr){
-    uniform_int_distribution<> dis (0, data.vm_size-1);
-    Chromosome best(chr);
-    auto old_fit = chr.fitness;
-    int vm1, vm2;
-
-    vm1 = dis(engine_chr);
-     do { vm2 = dis(engine_chr); }while(vm1 == vm2);
-
-    auto f = chr.vm_queue.find(vm1);
-    if(f != chr.vm_queue.end()){
-        vector<int> aux(f->second);
-        for (auto i : aux) {//for each element, do:
-            chr.allocation[i] = vm2;
-            chr.computeFitness(true, true);
-            if (best.fitness > chr.fitness)
-                //best = chr;
-                return chr;
-        }
-    }
-
-    if(old_fit  > best.fitness)
-        mal_hit +=1;
-    else
-        mal_miss += 1;
-
-    return best;
-}
-*/
 
 
 // ========== Main Functions ========== //
@@ -492,6 +398,7 @@ Chromosome run(string name_workflow, string name_cluster)  {
     Population.push_back(minminChr);
     Population.push_back(heftChr);
 
+
     double mut = 0.05;
 
     // 90% using the mutate procedure with variation
@@ -578,16 +485,7 @@ Chromosome run(string name_workflow, string name_cluster)  {
 }
 
 
-// Print result
-void output(Chromosome best, double elapseSecs) {
 
-    cout << "\t **** HEA **** " << endl;
-
-    best.print();
-
-    cout << best.fitness << " " << "   total RunTime: " << elapseSecs << endl;
-
-}
 
 // Read command line parameters (input files)
 void setupCmd(int argc, char **argv, string &name_workflow, string &name_cluster) {
@@ -637,10 +535,14 @@ int main(int argc, char **argv) {
 
     double elapseSecs = double(end - begin) / CLOCKS_PER_SEC;
 
-    if (!setting->verbose)
-        cout << best.fitness / 60.0 << " " << elapseSecs << endl;
-    else
-        output(best, elapseSecs);
+    if (setting->verbose){
+        cout << "\t **** HEA **** " << endl;
+        best.print();
+    }
+
+    
+    cout << "Best fitness: " << best.fitness / 60.0 << "(min)" << " Runtime: " << elapseSecs << "(sec)" << endl;
+        
 
 
     //delete setting struct
