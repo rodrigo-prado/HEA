@@ -18,7 +18,7 @@ O arquivo executável se encontra na basta **bin/**
 
 `cd HEA/bin`
 
-`./HEA -c ../input/cluster.vcl  -w ../input/CyberShake_30.xml.dag -v`
+`./HEA -c ../input/cluster.vcl -w ../input/miniworkflow.dag  -v`
 
 A entrada é composta por dois arquivos: 
 
