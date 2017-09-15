@@ -15,9 +15,8 @@ Os arquivos de entrada podem ser encontrados na pasta **HEA/input**
 ## Execução
 
 O arquivo executável se encontra na basta **bin/**
-
-*cd HEA/bin*
-*./HEA -c ../input/cluster.vcl  -w ../input/CyberShake_30.xml.dag -v*
+`cd HEA/bin`
+`./HEA -c ../input/cluster.vcl  -w ../input/CyberShake_30.xml.dag -v`
 
 A entrada é composta por dois arquivos: 
 
