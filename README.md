@@ -1,7 +1,5 @@
 # HEA
 
-# HEA
-
 O HEA é um algoritmo evolutivo híbrido  desenvolvido para solucionar o problema do escalonamento de tarefas e alocações de dados de workflows científicos.
 
 ## Instalação
