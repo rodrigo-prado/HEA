@@ -4,9 +4,9 @@ O HEA é um algoritmo evolutivo híbrido  desenvolvido para solucionar o problem
 
 ## Instalação
 
-Para executar o algoritmo é necessário instalar as dependências. Essa tarefa é facilmente executada utilizando o script [install.sh](https://github.com/luanteylo/HEA/setup/install.sh) disponível na pasta **HEA/setup/**.
+Para executar o algoritmo é necessário instalar as dependências. Essa tarefa é facilmente executada utilizando o script [install.sh](https://github.com/luanteylo/HEA/blob/master/setup/install.sh) disponível na pasta **HEA/setup/**.
 
-Para compilar o projeto utilize o arquivo [compile.sh](https://github.com/luanteylo/HEA/compile.sh) 
+Para compilar o projeto utilize o arquivo [compile.sh](https://github.com/luanteylo/HEA/blob/master/compile.sh) 
 
 ## Arquivos de Entrada
 
