@@ -2,8 +2,8 @@
 
 file0 2048 2 0 1
 file1 512
-file2 200
-file3 200
+file2 256
+file3 256
 file4 1024
 
 t0 task0 180 1 1

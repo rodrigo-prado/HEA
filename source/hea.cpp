@@ -347,7 +347,6 @@ inline void doNextPopulation(vect_chrom_type &Population) {
     // Selected the solutions to build the new population
     while (Population.size() < static_cast<unsigned int>(setting->num_chromosomes)) {
         auto pos = tournamentSelection(children_pool);
-        //auto pos = random() % children_pool.size();
         Population.push_back(Chromosome(children_pool[pos]));
         children_pool.erase(children_pool.begin() + pos);
     }
