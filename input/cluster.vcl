@@ -4,7 +4,6 @@
 1 m3.large 0.77 120 9.0 0.1
 2 m3.xlarge 0.38 160 10.0 0.1
 
-3 m3.2xlarge 0.19 200 10.0 0.1
 
 
 <number of provider>
