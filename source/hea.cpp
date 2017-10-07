@@ -53,13 +53,13 @@ Settings_struct *setting;
 
 
 /*  Call HEFT */
-Chromosome HEFT(Data data) {
+Chromosome HEFT(Data *data) {
     //orders
     event_map orders;
 
     //building and ordering the seqOfTasks
     vector<int> seqOftasks;
-    boost::copy(data.task_map | boost::adaptors::map_keys, std::back_inserter(seqOftasks));
+    boost::copy(data->task_map | boost::adaptors::map_keys, std::back_inserter(seqOftasks));
 
     vector<double> ranku_vet(seqOftasks.size(), 0.0);
     vector<double> ranku_aux(seqOftasks.size(), -1);
@@ -74,15 +74,15 @@ Chromosome HEFT(Data data) {
 
     //get all vm keys
     vector<int> vm_keys;
-    boost::copy(data.vm_map | boost::adaptors::map_keys, std::back_inserter(vm_keys));
+    boost::copy(data->vm_map | boost::adaptors::map_keys, std::back_inserter(vm_keys));
 
     //build orders struct (event_map)
     for (auto vm_key : vm_keys)
         orders.insert(make_pair(vm_key, vector<Event>()));
 
 
-    vector<int> taskOn(data.task_size, -1);
-    vector<double> end_time(data.task_size, 0);
+    vector<int> taskOn(data->task_size, -1);
+    vector<double> end_time(data->task_size, 0);
     for (auto id_task = seqOftasks.rbegin(); id_task != seqOftasks.rend(); id_task++) { // reverse vector
         allocate(*id_task, taskOn, vm_keys, orders, end_time, data, setting->lambda);
     }
@@ -96,7 +96,7 @@ Chromosome HEFT(Data data) {
     for (auto info : orders) {
         auto id_vm = info.first;
         for (auto event : info.second) {
-            auto task = data.task_map.find(event.id)->second;
+            auto task = data->task_map.find(event.id)->second;
             heft_chr.allocation[task.id] = id_vm;
             // update output files;
             for (auto out : task.output)
@@ -108,15 +108,15 @@ Chromosome HEFT(Data data) {
     // build ordering
     heft_chr.ordering.clear();
     // add root
-    heft_chr.ordering.push_back(data.id_root);
+    heft_chr.ordering.push_back(data->id_root);
     int task_id = -1;
     do {
         task_id = get_next_task(orders);
-        if (task_id != -1 && task_id != data.id_root && task_id != data.id_sink)
+        if (task_id != -1 && task_id != data->id_root && task_id != data->id_sink)
             heft_chr.ordering.push_back(task_id);
     } while (task_id != -1);
     // add sink
-    heft_chr.ordering.push_back(data.id_sink);
+    heft_chr.ordering.push_back(data->id_sink);
 
     heft_chr.computeFitness(true, true);
 
@@ -125,18 +125,18 @@ Chromosome HEFT(Data data) {
 
 
 /* Call MinMin */
-Chromosome minMinHeuristic(Data data) {
+Chromosome minMinHeuristic(Data *data) {
     list<int> task_list;
     // start task list
-    for (auto info : data.task_map)
+    for (auto info : data->task_map)
         task_list.push_back(info.second.id);
-    task_list.sort([&](const int &a, const int &b) { return data.height[a] < data.height[b]; });
+    task_list.sort([&](const int &a, const int &b) { return data->height[a] < data->height[b]; });
 
     list<int> avail_tasks;
 
-    vector<double> ft_vector(data.size, 0);
-    vector<double> queue(data.vm_size, 0);
-    vector<int> file_place(data.size, 0);
+    vector<double> ft_vector(data->size, 0);
+    vector<double> queue(data->vm_size, 0);
+    vector<int> file_place(data->size, 0);
     list<int> task_ordering(0);
 
 
@@ -144,7 +144,7 @@ Chromosome minMinHeuristic(Data data) {
     while (!task_list.empty()) {
         auto task = task_list.front();//get the first task
         avail_tasks.clear();
-        while (!task_list.empty() && data.height[task] == data.height[task_list.front()]) {
+        while (!task_list.empty() && data->height[task] == data->height[task_list.front()]) {
             //build list of ready tasks, that is the tasks which the predecessor was finish
             avail_tasks.push_back(task_list.front());
             task_list.pop_front();
@@ -156,7 +156,7 @@ Chromosome minMinHeuristic(Data data) {
 
     Chromosome minMin_chrom(data, setting->lambda);
 
-    for (int i = 0; i < data.size; i++)
+    for (int i = 0; i < data->size; i++)
         minMin_chrom.allocation[i] = file_place[i];
     minMin_chrom.ordering.clear();
 
@@ -174,7 +174,7 @@ Chromosome minMinHeuristic(Data data) {
 
 // ========== Path Relinking ============ //
 
-Chromosome pathRelinking(vect_chrom_type Elite_set, const Chromosome &dest, Data data) {
+Chromosome pathRelinking(vect_chrom_type Elite_set, const Chromosome &dest, Data *data) {
 
     Chromosome best(dest);
 
@@ -186,7 +186,7 @@ Chromosome pathRelinking(vect_chrom_type Elite_set, const Chromosome &dest, Data
         src.ordering.clear();
         src.ordering.insert(src.ordering.end(), dest.ordering.begin(), dest.ordering.end());
 
-        for (int el = 0; el < data.size; el++) {
+        for (int el = 0; el < data->size; el++) {
             if (src.allocation[el] != dest.allocation[el]) {
                 src.allocation[el] = dest.allocation[el];
                 src.computeFitness(true, true);
@@ -230,10 +230,10 @@ inline int tournamentSelection(vect_chrom_type Population) {
 // =========== Local search functions  ========= //
 
 // N1 - Swap-vm
-inline Chromosome localSearchN1(const Data data, Chromosome ch) {
+inline Chromosome localSearchN1(const Data *data, Chromosome ch) {
     Chromosome old_ch(ch);
-    for (int i = 0; i < data.size; i++) {
-        for (int j = i + 1; j < data.size; j++) {
+    for (int i = 0; i < data->size; i++) {
+        for (int j = i + 1; j < data->size; j++) {
             if (ch.allocation[i] != ch.allocation[j]) {
                 //do the swap
                 iter_swap(ch.allocation.begin() + i, ch.allocation.begin() + j);
@@ -250,12 +250,12 @@ inline Chromosome localSearchN1(const Data data, Chromosome ch) {
 }
 
 // N2 - Swap position
-inline Chromosome localSearchN2(const Data data, Chromosome ch) {
+inline Chromosome localSearchN2(const Data *data, Chromosome ch) {
     Chromosome old_ch(ch);
     // for each task, do
-    for (int i = 0; i < data.task_size; i++) {
+    for (int i = 0; i < data->task_size; i++) {
         auto task_i = ch.ordering[i];
-        for (int j = i + 1; j < data.task_size; j++) {
+        for (int j = i + 1; j < data->task_size; j++) {
             auto task_j = ch.ordering[j];
             if (ch.height_soft[task_i] == ch.height_soft[task_j]) {
                 //do the swap
@@ -274,12 +274,12 @@ inline Chromosome localSearchN2(const Data data, Chromosome ch) {
 }
 
 // N3 = Move-1 Element
-inline Chromosome localSearchN3(const Data data, Chromosome ch) {
+inline Chromosome localSearchN3(const Data *data, Chromosome ch) {
     Chromosome old_ch(ch);
 
-    for (int i = 0; i < data.size; ++i) {
+    for (int i = 0; i < data->size; ++i) {
         int old_vm = ch.allocation[i];
-        for (int j = 0; j < data.vm_size; j++) {
+        for (int j = 0; j < data->vm_size; j++) {
             if (old_vm != j) {
                 ch.allocation[i] = j;
                 ch.computeFitness();
@@ -354,7 +354,7 @@ inline void doNextPopulation(vect_chrom_type &Population) {
 }
 
 // Call all Local Search Functions
-inline void localSearch(vect_chrom_type &Population, Data data) {
+inline void localSearch(vect_chrom_type &Population, Data *data) {
 
     int how_many = setting->alpha * setting->num_chromosomes;
 
@@ -369,14 +369,14 @@ inline void localSearch(vect_chrom_type &Population, Data data) {
 Chromosome run(string name_workflow, string name_cluster)  {
 
     // Load input Files and the data structures used by the algorithms
-    Data data(name_workflow, name_cluster);
+    Data *data = new Data(name_workflow, name_cluster);
 
 
     vector<Chromosome> Population;
     vector<Chromosome> Elite_set;
 
     // Set Delta
-    setting->delta = data.size / 4.0;
+    setting->delta = data->size / 4.0;
 
     // check distance (inner Function)
     auto check_distance = [&](Chromosome chr, const vector<Chromosome> &Set) {
