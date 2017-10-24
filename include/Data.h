@@ -89,6 +89,10 @@ public:
 	}
 	virtual ~Data(){}
 
+
+
+
+
 private:
 
 	/* Read Input Files */
@@ -310,6 +314,7 @@ private:
 				computeHeight(j, n+1);
 		}
 	}
+	
 	unordered_map<int, vector<int>> reverse_map(unordered_map<int, vector<int>> amap){
 		unordered_map<int, vector<int>> r_map;
 		for(auto key : amap){

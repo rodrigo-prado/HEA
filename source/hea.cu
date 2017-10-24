@@ -1,6 +1,7 @@
 #include <iostream>
 #include "../include/HEFT.h"
 #include "../include/MinMin.h"
+#include "../include/cudacode.cu"
 
 typedef vector<Chromosome> vect_chrom_type;
 
@@ -372,6 +373,8 @@ Chromosome run(string name_workflow, string name_cluster)  {
     Data *data = new Data(name_workflow, name_cluster);
 
 
+
+
     vector<Chromosome> Population;
     vector<Chromosome> Elite_set;
 
@@ -392,6 +395,10 @@ Chromosome run(string name_workflow, string name_cluster)  {
     // == Start initial population == //
     Chromosome minminChr(minMinHeuristic(data));
     Chromosome heftChr(HEFT(data));
+
+
+    // cuda_call(data, heftChr);
+    cuda_call(data, &heftChr);
 
 
     Population.push_back(minminChr);
@@ -519,95 +526,15 @@ void setupCmd(int argc, char **argv, string &name_workflow, string &name_cluster
 //===================== CUDA ===========================
 
 
-
-void check_cudaError(cudaError_t error){
-    if(error != cudaSuccess){
-        cout << "Error: " << cudaGetErrorString(error) << endl;
-        exit(-1);
-    }
-
-}
-
-
-#define N 1024 // Num threads
-// #define K 2  // Num blocks
-
-#define S 3048 // vector size
-
-__global__ void add(int *a, int *b, int *c){
-    int i = threadIdx.x + (blockIdx.x * blockDim.x);
-
-    if(i < S)
-        c[i] = a[i] + b[i];
-    
-    // printf("index: %d, thread_id: %d, id_block: %d, dim: %d\n", i, threadIdx.x, blockIdx.x, blockDim.x);
-}
-
-
-int cuda_call( ){
-
-    int *a, *b, *c;
-    int *d_a, *d_b, *d_c;
-
-    int size = sizeof(int);
-
-    //Let's define the block size dinamicaly
-
-    int K = ceil(float(S)/float(N));
-
-    cout << "NumBlock: " << K << " Thread per Block: " << N << " Data size: " << S << endl;
-
-
-
-    //CPU malloc
-    a = (int *) malloc(S * size);
-    b = (int *) malloc(S * size);
-    c = (int *) malloc(S * size);
-
-    //setup input values
-    for(int i = 0; i < S; i++)
-        a[i] = b[i] = 1;
-
-    //GPU malloc
-    check_cudaError(cudaMalloc(&d_a, S * size));
-    check_cudaError(cudaMalloc(&d_b, S * size));
-    check_cudaError(cudaMalloc(&d_c, S * size));
-
-    //CPU -> GPU
-    cudaMemcpy(d_a, a, S * size, cudaMemcpyHostToDevice);
-    cudaMemcpy(d_b, a, S * size, cudaMemcpyHostToDevice);
-
-    add<<<K, N>>>(d_a, d_b, d_c);
-
-    //GPU -> CPU
-    cudaMemcpy(c, d_c, S * size, cudaMemcpyDeviceToHost);
-
-    for(int i = 0; i < S; i++){
-        assert(c[i] == 2);
-        // cout << c[i] << ", ";
-    }
-
-    // cout << endl;
-
-    cudaFree(d_a);
-    cudaFree(d_b);
-    cudaFree(d_c);
-
-    free(a); free(b); free(c);
-
-    
-    return 0;
-}
-
-
-
-
-
 int main(int argc, char **argv) {
 
     clock_t begin = clock();
 
-    cuda_call();
+    /* initialize random seed: */
+
+    auto seed = time(NULL);
+    srand (seed);
+
 
     string name_workflow, name_cluster;
 
@@ -628,7 +555,7 @@ int main(int argc, char **argv) {
         best.print();
     }
 
-    
+    cout <<"rand seed: " << seed << endl;
     cout << "Best fitness: " << best.fitness / 60.0 << "(min)" << " Runtime: " << elapseSecs << "(sec)" << endl;
         
 
