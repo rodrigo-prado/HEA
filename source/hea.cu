@@ -397,8 +397,8 @@ Chromosome run(string name_workflow, string name_cluster)  {
     Chromosome heftChr(HEFT(data));
 
 
-    // cuda_call(data, heftChr);
-    // cuda_call(data, &heftChr);
+    gpu_test();
+    exit(0);
 
 
     Population.push_back(minminChr);
@@ -546,6 +546,7 @@ int main(int argc, char **argv) {
 
     best.computeFitness(true, true);
 
+
     clock_t end = clock();
 
     double elapseSecs = double(end - begin) / CLOCKS_PER_SEC;
@@ -557,7 +558,8 @@ int main(int argc, char **argv) {
 
     cout <<"rand seed: " << seed << endl;
     cout << "Best fitness: " << best.fitness / 60.0 << "(min)" << " Runtime: " << elapseSecs << "(sec)" << endl;
-        
+
+
 
 
     //delete setting struct
