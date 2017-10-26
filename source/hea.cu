@@ -2,7 +2,7 @@
 #include "../include/HEFT.h"
 #include "../include/MinMin.h"
 #include "../include/cudacode.cu"
-
+#include <omp.h>
 typedef vector<Chromosome> vect_chrom_type;
 
 struct Settings_struct {
@@ -398,7 +398,7 @@ Chromosome run(string name_workflow, string name_cluster)  {
 
 
     // cuda_call(data, heftChr);
-    cuda_call(data, &heftChr);
+    // cuda_call(data, &heftChr);
 
 
     Population.push_back(minminChr);
@@ -535,7 +535,7 @@ int main(int argc, char **argv) {
     auto seed = time(NULL);
     srand (seed);
 
-
+    
     string name_workflow, name_cluster;
 
     setting = new Settings_struct();

@@ -33,7 +33,7 @@ class Chromosome {
 
 public:
     vector<int> allocation, height_soft;
-    vector<double> time_vector, start_time_vector;
+    vector<double> fitness_vector, starttime_vector, readtime_vector, runtime_vector, writetime_vector;
     vector<int> ordering;
     double fitness, lambda, transfer_size;
     Data *data;
@@ -43,7 +43,8 @@ public:
 
     Chromosome(Data *data, double lambda) :
             allocation(data->size, -1), height_soft(data->task_size, -1),
-            time_vector(data->task_size, -1), start_time_vector(data->task_size, -1),
+            fitness_vector(data->task_size, -1), starttime_vector(data->task_size, -1),
+            readtime_vector(data->task_size, -1), runtime_vector(data->task_size,-1), writetime_vector(data->task_size, -1),
             ordering(0), fitness(0), lambda(lambda), transfer_size(0), data(data) {
         computeHeightSoft(data->id_root);
         encode();
@@ -53,7 +54,8 @@ public:
 
     Chromosome(const Chromosome &other) :
             allocation(other.allocation), height_soft(other.height_soft),
-            time_vector(other.time_vector), start_time_vector(other.start_time_vector),
+            fitness_vector(other.fitness_vector), starttime_vector(other.starttime_vector),
+            readtime_vector(other.readtime_vector), runtime_vector(other.runtime_vector), writetime_vector(other.writetime_vector),
             ordering(other.ordering), fitness(other.fitness),
             lambda(other.lambda), transfer_size(other.transfer_size), data(other.data),
             scheduler(other.scheduler), vm_queue(other.vm_queue) {}
@@ -67,8 +69,11 @@ public:
     // Compute the fitness of chromosome
     void computeFitness(bool check_storage = true, bool check_sequence = false) {
 
-        fill(time_vector.begin(), time_vector.end(), -1);
-        fill(start_time_vector.begin(), start_time_vector.end(), -1);
+        fill(fitness_vector.begin(), fitness_vector.end(), -1);
+        fill(starttime_vector.begin(), starttime_vector.end(), -1);
+        fill(readtime_vector.begin(), readtime_vector.end(), -1);
+        fill(runtime_vector.begin(), runtime_vector.end(), -1);
+        fill(writetime_vector.begin(), writetime_vector.end(), -1);
 
         vector<double> queue(data->vm_size, 0);
 
@@ -108,23 +113,27 @@ public:
                 auto finish_time = start_time + read_time + run_time + write_time;
 
                 //update structures
-                time_vector[id_task] = finish_time;
-                start_time_vector[id_task] = start_time;
+                starttime_vector[id_task] = start_time;
+                readtime_vector[id_task] = read_time;
+                runtime_vector[id_task] = run_time;
+                writetime_vector[id_task]= write_time;
+                fitness_vector[id_task] = finish_time;
+
                 queue[vm.id] = finish_time;
                 
             } else {// root and sink tasks
                 if (id_task == data->id_root)
-                    time_vector[id_task] = 0;
+                    fitness_vector[id_task] = 0;
                 else {//sink task
                     double max_value = 0.0;
                     for (auto tk : data->prec.find(id_task)->second)
-                        max_value = std::max(max_value, time_vector[tk]);
-                    time_vector[id_task] = max_value;
+                        max_value = std::max(max_value, fitness_vector[tk]);
+                    fitness_vector[id_task] = max_value;
                 }
             }
         }
 
-        fitness = time_vector[data->id_sink];
+        fitness = fitness_vector[data->id_sink];
     }
 
     /*crossover*/
@@ -184,16 +193,6 @@ public:
 
         cout << endl;
 
-        /*for(auto info : data->vm_map){
-            auto vm = info.second;
-            cout << "[" << vm.id << "]" << " <" << vm.name << "> : ";
-            auto f = scheduler.find(vm.id);
-            if(f != scheduler.end()) {
-                for (auto task_tag : f->second)
-                    cout << task_tag << " ";
-            }
-            cout << endl;
-        }*/
         cout << "Files: " << endl;
         for (auto info: data->vm_map) {
             auto vm = info.second;
@@ -207,6 +206,34 @@ public:
             cout << endl;
         }
 
+
+        cout << "\nstarttime_vector: [";
+        for(auto time : starttime_vector)
+            cout << time << ", ";
+        cout << "]" << endl;
+
+        cout << "\nreadtime_vector: [";
+        for(auto time : readtime_vector)
+            cout << time << ", ";
+        cout << "]" << endl;
+
+        cout << "\nruntime_vector: [";
+        for(auto time : runtime_vector)
+            cout << time << ", ";
+        cout << "]" << endl;
+
+        cout << "\nwritetime_vector: [";
+        for(auto time : writetime_vector)
+            cout << time << ", ";
+        cout << "]" << endl;
+
+        cout << "\nfitness_vector: [";
+        for(auto time : fitness_vector)
+            cout << time << ", ";
+        cout << "]" << endl;
+
+
+      
 
         /*for(auto info : data->file_map){
             auto file = info.second;
@@ -290,7 +317,7 @@ private:
     /* Checks the sequence of tasks is valid */
     inline bool checkTaskSeq(int task) {
         for (auto tk : data->prec.find(task)->second)
-            if (time_vector[tk] == -1)
+            if (fitness_vector[tk] == -1)
                 return false;
         return true;
     }
@@ -374,7 +401,7 @@ private:
         double max_pred_time = 0.0;
 
         for (auto tk : data->prec.find(task.id)->second)
-            max_pred_time = std::max(max_pred_time, time_vector[tk]);
+            max_pred_time = std::max(max_pred_time, fitness_vector[tk]);
         return std::max(max_pred_time, queue[vm.id]);
     }
 
