@@ -50,10 +50,10 @@ struct Move {
 	/**
 	  * Constructor that represents the swap of node i and j
 	  */
-	__device__ explicit Move(unsigned int i_, unsigned int j_, unsigned int* solution_)
+	__device__ explicit Move(unsigned int i_, unsigned int j_, int* solution_)
 		: i(i_), j(j_), solution(solution_) {}
 
-	unsigned int* solution;
+	int* solution;
 	unsigned int i,j;
 };
 
@@ -64,7 +64,7 @@ struct Move {
   * from node i to j (e.g., in travelling salesman: the distance 
   * between the nodes)
   */
-__device__ float cost_of_edge(const unsigned int& i, const unsigned int& j, const unsigned int* &solution, const float * &city_coordinates) {
+__device__ float cost_of_edge(const unsigned int& i, const unsigned int& j, const int* &solution, const float * &city_coordinates) {
 	unsigned int a = solution[i];
 	unsigned int b = solution[j];
 
@@ -76,24 +76,16 @@ __device__ float cost_of_edge(const unsigned int& i, const unsigned int& j, cons
 /**
   * The cost of swapping node i with node j. 
   */
-__device__ float cost(const Move& move, const float * &city_coordinates) {
+__device__ float cost(const Move& move, const unsigned int & num_nodes_) {
 	const unsigned int i = move.i;
 	const unsigned int j = move.j;
-	const unsigned int* ptr = move.solution;
+	const int* ptr = move.solution;
 
-	// special case: switch neighboring cities
-	if (j == i+1)
-		return
-		  cost_of_edge(i-1, j, ptr, city_coordinates) + cost_of_edge(j,i,ptr,city_coordinates)
-		+ cost_of_edge(i, j+1, ptr, city_coordinates)
-		- cost_of_edge(i-1, i, ptr, city_coordinates) - cost_of_edge(i,j,ptr,city_coordinates)
-		- cost_of_edge(j, j+1, ptr, city_coordinates);
+    int cost = 0;
+	for(int i = 0; i < num_nodes_; i++ )
+        if(ptr[i] == 0) cost += 1;
 
-	return 
-		  cost_of_edge(i-1, j, ptr, city_coordinates) + cost_of_edge(j, i+1, ptr, city_coordinates) // cost of new edges i-1,j,i+1
-		- cost_of_edge(i-1, i, ptr, city_coordinates) - cost_of_edge(i, i+1, ptr, city_coordinates) // cost of existing edges i-1,i,i+1
-		+ cost_of_edge(j-1, i, ptr, city_coordinates) + cost_of_edge(i, j+1, ptr, city_coordinates) // cost of new edges j-1,i,j+1
-		- cost_of_edge(j-1, j, ptr, city_coordinates) - cost_of_edge(j, j+1, ptr, city_coordinates); // cost of existing edges j-1,j,j+1
+    return cost;
 }
 
 /**
@@ -109,7 +101,7 @@ __device__ void apply_move(Move& move) {
   * @param move_number Move number to generate
   * @param num_nodes_ number of nodes
   */
-__device__ Move generate_move(const unsigned int& move_number_, const unsigned int& num_nodes_, unsigned int* solution_) {
+__device__ Move generate_move(const unsigned int& move_number_, const unsigned int & num_nodes_, int * solution_) {
 	float n = static_cast<float>(num_nodes_);
 	float i = static_cast<float>(move_number_);
 
@@ -124,7 +116,7 @@ __device__ Move generate_move(const unsigned int& move_number_, const unsigned i
 	unsigned int x = static_cast<unsigned int>(dx);
 	unsigned int y = static_cast<unsigned int>(dy);
 
-	printf("x: %d   y: %d \n", x, y);
+    printf("x: %d y: %d\n", x, y);
 
 	return Move(x, y, solution_);
 }
@@ -133,32 +125,31 @@ __device__ Move generate_move(const unsigned int& move_number_, const unsigned i
 /**
   * CUDA kernel that executes local search on the GPU
   */
-__global__ void evaluate_moves_kernel(unsigned int* solution_, const float* city_coordinates_, float* deltas_, unsigned int* moves_, unsigned int num_nodes_, unsigned int num_moves_per_thread_) {
+__global__ void evaluate_moves_kernel(int * solution_, unsigned int *moves_, double * deltas_, static double  fitness, unsigned int num_nodes_, unsigned int num_moves_per_thread_) {
+	
 	unsigned int tid = blockIdx.x * blockDim.x + threadIdx.x;
 
 	const unsigned int num_moves = (static_cast<int>(num_nodes_)-2) * (static_cast<int>(num_nodes_)-1)/2;
 
-	float min_delta = 0.0;
+	float min_delta = fitness;
 
 	const unsigned int first_move = tid * num_moves_per_thread_;
 	
-	unsigned int best_move = first_move;
+	// unsigned int best_move = first_move;
 
 	for (int i = first_move; i < (first_move + num_moves_per_thread_); ++i) {
 		if (i < num_moves) {
 			Move move = generate_move(i, num_nodes_, solution_);
-			float move_cost = cost(move, city_coordinates_);
+			float move_cost = cost(move);
 			if (move_cost < min_delta) {
-				min_delta = move_cost;
-				best_move = i;
+			 	min_delta = move_cost;
+			 	best_move = i;
 			}
 		}
 	}
 
 	deltas_[tid] = min_delta;
 	moves_[tid] = best_move;
-
-	printf("##########\n");
 }
 
 template<unsigned int threads>
@@ -222,7 +213,7 @@ __global__ void apply_best_move_kernel(unsigned int* solution_, float* deltas_, 
 * @param solution:     Current solution, will be changed during local search
 * @param neighborhood: Collection of moves == potential neighbors
 */
-unsigned int local_search(std::vector<unsigned int>& solution, const std::vector<float> &city_coordinates, const unsigned int max_iterations) {
+unsigned int local_search(Chromosome & solution) {
 	//Number of legal moves. 
 	//We do not want to swap the first node, which means we have n-1 nodes we can swap
 	//For the first node, we then have n-2 nodes to swap with, 
@@ -231,7 +222,7 @@ unsigned int local_search(std::vector<unsigned int>& solution, const std::vector
 	//which gives us sum_i=1^{n-2} i legal swaps,
 	//or (n-2)(n-1)/2 legal swaps
 
-	const unsigned int num_nodes = solution.size()-1;
+	const unsigned int num_nodes = solution.allocation.size() - 1;
 	const unsigned int num_moves = (num_nodes-2)*(num_nodes-1)/2;
 
 	// const unsigned int num_evaluate_threads = 8192;
@@ -252,153 +243,94 @@ unsigned int local_search(std::vector<unsigned int>& solution, const std::vector
 	cout << "num_apply_threads: " << num_apply_threads << endl;
 
 	//Pointer to memory on the GPU 
-	unsigned int* solution_gpu;
-	float* coords_gpu;
-	float* deltas_gpu;
-	unsigned int* moves_gpu;
-	cudaError err;
+	int * solution_gpu;
+    double * deltas_gpu;
+    unsigned int * moves_gpu;
 
-	unsigned int num_iterations = 0;
-	
-	//Ensure clean start
-	err = cudaDeviceReset();
-	if (err != cudaSuccess) {
-		std::cout << "Could not reset device to ensure clean start" << std::endl;
-		return num_iterations;
-	}
+
+    //Ensure clean start
+	check_cudaError(cudaDeviceReset());
+
 
 	//Allocate GPU memory for solution
-	err = cudaMalloc(&solution_gpu, solution.size()*sizeof(unsigned int));
-	if (err != cudaSuccess) {
-		std::cout << "Could not allocate GPU memory for solution" << std::endl;
-		return num_iterations;
-	}
+    check_cudaError(cudaMalloc(&solution_gpu, solution.allocation.size() * sizeof(int)));
+
 	//Copy solution to GPU
-	err = cudaMemcpy(solution_gpu, &solution[0], solution.size()*sizeof(unsigned int), cudaMemcpyHostToDevice);
-	if (err != cudaSuccess) {
-		std::cout << "Could not copy solution to GPU memory" << std::endl;
-		return num_iterations;
-	}
+	check_cudaError(cudaMemcpy(solution_gpu, &(solution.allocation[0]), solution.allocation.size() * sizeof(int), cudaMemcpyHostToDevice));
 
-	// Allocate GPU memory for coordinates
-	err = cudaMalloc(&coords_gpu, num_nodes*2*sizeof(float));
-	if (err != cudaSuccess) {
-		std::cout << "Could not allocate GPU memory for coordinates" << std::endl;
-		return num_iterations;
-	}
-	//Copy coordinates to GPU
-	err = cudaMemcpy(coords_gpu, &city_coordinates[0], num_nodes*2*sizeof(float), cudaMemcpyHostToDevice);
-	if (err != cudaSuccess) {
-		std::cout << "Could not copy coordinates to GPU memory" << std::endl;
-		return num_iterations;
-	}
+    //Allocate memory for deltas
+    check_cudaError(cudaMalloc(&deltas_gpu, num_evaluate_threads * sizeof(double)));
 
-	//Allocate memory for deltas
-	err = cudaMalloc(&deltas_gpu, num_evaluate_threads*sizeof(float));
-	if (err != cudaSuccess) {
-		std::cout << "Could not allocate GPU memory for deltas" << std::endl;
-		return num_iterations;
-	}
-	//Allocate memory for moves
-	err = cudaMalloc(&moves_gpu, num_evaluate_threads*sizeof(unsigned int));
-	if (err != cudaSuccess) {
-		std::cout << "Could not allocate GPU memory for moves" << std::endl;
-		return num_iterations;
-	}
+    //Allocate memory for moves
+    check_cudaError(cudaMalloc(&moves_gpu, num_evaluate_threads * sizeof(unsigned int)));
 
-	for (;;) {
-		
-		//Loop through all possible moves and find best (steepest descent)
-		evaluate_moves_kernel<<<evaluate_grid, evaluate_block>>>(solution_gpu, coords_gpu, deltas_gpu, moves_gpu, num_nodes, num_moves_per_thread);
-		apply_best_move_kernel<num_apply_threads><<<apply_grid, apply_block>>>(solution_gpu, deltas_gpu, moves_gpu, num_nodes, num_evaluate_threads);
-		
-		//Copy the smallest delta and best move to the CPU.
-	    float min_delta = 0.0; 
-		err = cudaMemcpy(&min_delta, &deltas_gpu[0], sizeof(float), cudaMemcpyDeviceToHost);
-		if (err != cudaSuccess) {
-			std::cout << "Could not copy minimum delta to CPU" << std::endl;
-			return 0;
-		}
 
-		// If no moves improve the solution, we are finished
-		if (min_delta > -1e-7) {
-			break;
-		}
-
-		++num_iterations;
-		if (num_iterations >= max_iterations)
-			break;
-	}
+	//Loop through all possible moves and find best (steepest descent)
+	evaluate_moves_kernel <<< evaluate_grid, evaluate_block >>>(solution_gpu, moves_gpu, deltas_gpu, solution.fitness, num_nodes, num_moves_per_thread);
+	
+	// apply_best_move_kernel<num_apply_threads><<<apply_grid, apply_block>>>(solution_gpu, deltas_gpu, moves_gpu, num_nodes, num_evaluate_threads);
 
 	//Copy solution to CPU
-	err = cudaMemcpy(&solution[0], solution_gpu, solution.size()*sizeof(unsigned int), cudaMemcpyDeviceToHost);
-	if (err != cudaSuccess) {
-		std::cout << "Could not copy solution to CPU memory" << std::endl;
-		return num_iterations;
-	}
+	check_cudaError(cudaMemcpy(&(solution.allocation[0]), solution_gpu, solution.allocation.size() * sizeof(int), cudaMemcpyDeviceToHost));
 
-	err = cudaDeviceReset();
-	if (err != cudaSuccess) {
-		std::cout << "Could not reset device after finishing" << std::endl;
-		return num_iterations;
-	}
-
-	return num_iterations;
-}
-
-
-
-int gpu_test( ) {
-
-	//Number of nodes in our solution	
-	unsigned int num_nodes = 4;
-	// Maximal number of iterations performed in local search
-	unsigned int max_iterations = 5000;
-
-	// choose number of nodes and maximal number of iterations according to command line argument
-	
-
-	// info output
-	std::cout << "problem size:       " << num_nodes << " nodes" << std::endl;
-	std::cout << "maximal iterations: " << max_iterations << std::endl;
-
-
-	// generate random coordinates
-	unsigned int seed = 12345;
-	srand(seed);
-	std::vector<float> city_coordinates(2*num_nodes);
-	for(unsigned int i = 0; i < num_nodes; ++i)
-	{
-		city_coordinates[2*i] = ((float)rand())/((float)RAND_MAX);
-		city_coordinates[2*i+1] = ((float)rand())/((float)RAND_MAX);
-	}
-
-	//Generate our circular solution vector (last node equal first)
-	std::vector<unsigned int> gpu_solution(num_nodes+1);
-	for(unsigned int i = 0; i < num_nodes; ++i) {
-		gpu_solution[i] = i;
-	}
-
-	SimpleRNG rng(54321);
-	std::random_shuffle(gpu_solution.begin()+1, gpu_solution.end()-1, rng);
-	//Dummy node for more readable code
-	gpu_solution[num_nodes] = gpu_solution[0];
-	
-
-	unsigned int gpu_num_iterations = local_search(gpu_solution, city_coordinates, max_iterations);
-
-	cout << "solution: " << endl;
-	for(auto i : gpu_solution)
-		cout << i << ", ";
-	cout << endl;
-
-	float gpu_cost = solution_cost(gpu_solution, city_coordinates);
-	std::cout << "GPU completed " << gpu_num_iterations << " iterations in " << std::endl;
-	std::cout << " Solution has a cost of " << gpu_cost << std::endl;
-	//check_results(gpu_solution, max_iterations, false);
+	check_cudaError(cudaDeviceReset());
 
 	return 0;
 }
+
+
+
+//int gpu_test( ) {
+//
+//	//Number of nodes in our solution
+//	unsigned int num_nodes = 4;
+//	// Maximal number of iterations performed in local search
+//	unsigned int max_iterations = 5000;
+//
+//	// choose number of nodes and maximal number of iterations according to command line argument
+//
+//
+//	// info output
+//	std::cout << "problem size:       " << num_nodes << " nodes" << std::endl;
+//	std::cout << "maximal iterations: " << max_iterations << std::endl;
+//
+//
+//	// generate random coordinates
+//	unsigned int seed = 12345;
+//	srand(seed);
+//	std::vector<float> city_coordinates(2*num_nodes);
+//	for(unsigned int i = 0; i < num_nodes; ++i)
+//	{
+//		city_coordinates[2*i] = ((float)rand())/((float)RAND_MAX);
+//		city_coordinates[2*i+1] = ((float)rand())/((float)RAND_MAX);
+//	}
+//
+//	//Generate our circular solution vector (last node equal first)
+//	std::vector<unsigned int> gpu_solution(num_nodes+1);
+//	for(unsigned int i = 0; i < num_nodes; ++i) {
+//		gpu_solution[i] = i;
+//	}
+//
+//	SimpleRNG rng(54321);
+//	std::random_shuffle(gpu_solution.begin()+1, gpu_solution.end()-1, rng);
+//	//Dummy node for more readable code
+//	gpu_solution[num_nodes] = gpu_solution[0];
+//
+//
+//	unsigned int gpu_num_iterations = local_search(gpu_solution, city_coordinates, max_iterations);
+//
+//	cout << "solution: " << endl;
+//	for(auto i : gpu_solution)
+//		cout << i << ", ";
+//	cout << endl;
+//
+//	float gpu_cost = solution_cost(gpu_solution, city_coordinates);
+//	std::cout << "GPU completed " << gpu_num_iterations << " iterations in " << std::endl;
+//	std::cout << " Solution has a cost of " << gpu_cost << std::endl;
+//	//check_results(gpu_solution, max_iterations, false);
+//
+//	return 0;
+//}
 
 
 
