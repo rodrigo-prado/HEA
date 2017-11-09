@@ -57,18 +57,32 @@ struct Move {
 /**
   * The cost of swapping node i with node j. 
   */
-__device__ double cost(const Move& move, const unsigned int & num_nodes_) {
-	const unsigned int i = move.i;
-	const unsigned int j = move.j;
-	const int* ptr = move.solution;
+__device__ double cost(const double * base_, const double * vm_slowdown_, const unsigned int * whatisit_, const Move& move, const unsigned int & num_nodes_) {
+	int vmi = solution[move.i];
+	int vmj = solution[move.j];
+	
+	int i = move.i;
+	int j = move.j;
 
+	double base_i = base_[i];
+	double base_j = base_[j];
 
-    double cost = 0.0;
+	double slowdown_i = vm_slowdown_[vmi];
+	double slowdown_j = vm_slowdown_[vmj];
 
-	if(ptr[i] == 0 && ptr[j] != 0)  return -1;
-	if(ptr[i] ==  0 && ptr[j] == 0) return 1.0;
-	if(ptr[i] != 0 && ptr[j] == 0 ) return 2.0;
+	double fitness_i, fitness_j;
 
+	if(vmi != vmj){
+		//i and j are two tasks?
+		if(whatisit_[i] == 1)
+			fitness_i = base_i * slowdown_i;
+		if(whatisit_[j] == 1)
+			fitness_j = base_j * slowdown_j;
+
+	}
+
+	return swap_fitness; // não houve mudança no fitness
+	
 }
 
 /**
@@ -110,11 +124,9 @@ __device__ Move generate_move(const unsigned int& move_number_, const unsigned i
 /**
   * CUDA kernel that executes local search on the GPU
   */
-__global__ void evaluate_moves_kernel(int * solution_, unsigned int *moves_, double * deltas_, const double  fitness, unsigned int num_nodes_, unsigned int num_moves_per_thread_) {
+__global__ void evaluate_moves_kernel(const double * base_, const double * vm_slowdown_, const unsigned int * whatisit_, int * solution_, unsigned int *moves_, double * deltas_, const double  fitness, unsigned int num_nodes_, unsigned int num_moves_per_thread_) {
 	
 	unsigned int tid = blockIdx.x * blockDim.x + threadIdx.x;
-
-	printf("%d\n", tid);
 
 	const unsigned int num_moves = (static_cast<int>(num_nodes_)-2) * (static_cast<int>(num_nodes_)-1)/2;
 
@@ -127,7 +139,7 @@ __global__ void evaluate_moves_kernel(int * solution_, unsigned int *moves_, dou
 	for (int i = first_move; i < (first_move + num_moves_per_thread_); ++i) {
 		if (i < num_moves) {
 			Move move = generate_move(i, num_nodes_, solution_);
-			double move_cost = cost(move, num_nodes_);
+			double move_cost = cost(base_, vm_slowndown_, whatisit_, move, num_nodes_);
 			if (move_cost > max_delta) {
 			 	max_delta = move_cost;
 			 	best_move = i;
@@ -274,51 +286,49 @@ unsigned int local_search(Chromosome & solution, Data * data) {
     int * dependency_gpu;
     unsigned int static_vm = data->static_vm;
 
-   
+   	//Allocate GPU memory for environmet's information
+	check_cudaError(cudaMalloc(&base_gpu, data->base.size() * sizeof(double)));
+	check_cudaError(cudaMalloc(&vm_slowdown_gpu, data->vm_slowdown.size() * sizeof(double)));
+	check_cudaError(cudaMalloc(&whatisit_gpu, data->whatisit.size() * sizeof(unsigned int)));
+	//Copy informations to GPU
+	check_cudaError(cudaMemcpy(base_gpu, &(data->base[0]), data->base.size() * sizeof(double), cudaMemcpyDeviceToHost));
+	check_cudaError(cudaMemcpy(vm_slowdown_gpu, &(data->vm_slowdown[0]), data->vm_slowdown.size() * sizeof(double), cudaMemcpyDeviceToHost));
+	check_cudaError(cudaMemcpy(whatisit_gpu, &(data->whatisit[0]), data->whatisit.size() * sizeof(unsigned int), cudaMemcpyDeviceToHost));
 
 	//Allocate GPU memory for solution
-    check_cudaError(cudaMalloc(&solution_gpu, 10 * sizeof(int)));
-     cout << "solution" << endl;
-	//Copy solution to GPU
+    check_cudaError(cudaMalloc(&solution_gpu, solution.allocation.size() * sizeof(int)));
+    //Copy solution to GPU
 	check_cudaError(cudaMemcpy(solution_gpu, &(solution.allocation[0]), solution.allocation.size() * sizeof(int), cudaMemcpyHostToDevice));
 
-	test <<< 1, 1 >>>(solution_gpu,  solution.allocation.size());
+    //Allocate memory for deltas
+    check_cudaError(cudaMalloc(&deltas_gpu, num_evaluate_threads * sizeof(double)));
+    //Allocate memory for moves
+    check_cudaError(cudaMalloc(&moves_gpu, num_evaluate_threads * sizeof(unsigned int)));
 
-	cudaFree(solution_gpu);
-
- //    //Allocate memory for deltas
- //    check_cudaError(cudaMalloc(&deltas_gpu, num_evaluate_threads * sizeof(double)));
-
- //    //Allocate memory for moves
- //    check_cudaError(cudaMalloc(&moves_gpu, num_evaluate_threads * sizeof(unsigned int)));
-
- //    solution.fitness = 0.0;
- //    for(int i = 0; i < solution.allocation.size(); i++)
- //    	if(solution.allocation[i] == 0) solution.fitness += 1;
-
-
-	// //Loop through all possible moves and find best (steepest descent)
-	// evaluate_moves_kernel <<< evaluate_grid, evaluate_block >>>(solution_gpu, moves_gpu, deltas_gpu, solution.fitness, num_nodes, num_moves_per_thread);
+	evaluate_moves_kernel <<< evaluate_grid, evaluate_block >>>(base_gpu, vm_slowdown_gpu, whatisit_gpu, solution_gpu, moves_gpu, deltas_gpu, solution.fitness, num_nodes, num_moves_per_thread);
 	// apply_best_move_kernel<num_apply_threads><<<apply_grid, apply_block>>>(solution_gpu, solution.fitness, deltas_gpu, moves_gpu, num_nodes, num_evaluate_threads);
 	
 	
-	// double max_delta = 0.0; 
-	// check_cudaError(cudaMemcpy(&max_delta, &deltas_gpu[0], sizeof(double), cudaMemcpyDeviceToHost));
+	double max_delta = 0.0; 
+	check_cudaError(cudaMemcpy(&max_delta, &deltas_gpu[0], sizeof(double), cudaMemcpyDeviceToHost));
 
-	// //Copy solution to CPU
-	// check_cudaError(cudaMemcpy(&(solution.allocation[0]), solution_gpu, solution.allocation.size() * sizeof(int), cudaMemcpyDeviceToHost));
+	//Copy solution to CPU
+	check_cudaError(cudaMemcpy(&(solution.allocation[0]), solution_gpu, solution.allocation.size() * sizeof(int), cudaMemcpyDeviceToHost));
 
-	// cudaFree(solution_gpu);
-	// cudaFree(deltas_gpu);
-	// cudaFree(moves_gpu);
+	cudaFree(solution_gpu);
+	cudaFree(deltas_gpu);
+	cudaFree(moves_gpu);
 
+	cudaFree(base_gpu);
+	cudaFree(vm_slowdown_gpu);
+	cudaFree(whatisit_gpu);
 
-	// check_cudaError(cudaDeviceReset());
+	check_cudaError(cudaDeviceReset());
 
-	// cout << "Print after: " << endl;
-	// cout << "max_delta: " << max_delta << endl;
+	cout << "Print after: " << endl;
+	cout << "max_delta: " << max_delta << endl;
     
- // 	solution.computeFitness();
+ 	solution.computeFitness();
 	
 
 	return 0;

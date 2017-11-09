@@ -1,1 +1,0 @@
-/usr/bin/c++   -O3  -Wall -std=c++11 -g  -rdynamic CMakeFiles/HEA.dir/source/main.cpp.o  -o HEA 
