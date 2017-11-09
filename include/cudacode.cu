@@ -52,42 +52,31 @@ struct Move {
 	unsigned int i,j;
 };
 
+struct Solution {
+    int * allocation;
+    double * runtime;
+};
 
+struct Environment {
+	double * base;
+	double * slowdown;
+	unsigned int * whatisit;
+	int num_vms;
+	int size;
+};
 
 /**
-  * The cost of swapping node i with node j. 
-  */
-__device__ double cost(const double * base_, const double * vm_slowdown_, const unsigned int * whatisit_, const Move& move, const unsigned int & num_nodes_) {
-	int vmi = solution[move.i];
-	int vmj = solution[move.j];
-	
-	int i = move.i;
-	int j = move.j;
+ * The cost of swapping node i with node j.
+ */
+__device__ double cost(const Solution & solution_, const Environment & Env_, const Move & move, const unsigned int & num_nodes_) {
 
-	double base_i = base_[i];
-	double base_j = base_[j];
+	return 0.0; // não houve mudança no fitness
 
-	double slowdown_i = vm_slowdown_[vmi];
-	double slowdown_j = vm_slowdown_[vmj];
-
-	double fitness_i, fitness_j;
-
-	if(vmi != vmj){
-		//i and j are two tasks?
-		if(whatisit_[i] == 1)
-			fitness_i = base_i * slowdown_i;
-		if(whatisit_[j] == 1)
-			fitness_j = base_j * slowdown_j;
-
-	}
-
-	return swap_fitness; // não houve mudança no fitness
-	
 }
 
 /**
-  * Apply the move
-  */
+ * Apply the move
+ */
 __device__ void apply_move(Move& move) {
 	unsigned int tmp = move.solution[move.i];
 	move.solution[move.i] = move.solution[move.j];
@@ -97,9 +86,9 @@ __device__ void apply_move(Move& move) {
 }
 
 /**
-  * @param move_number Move number to generate
-  * @param num_nodes_ number of nodes
-  */
+ * @param move_number Move number to generate
+ * @param num_nodes_ number of nodes
+ */
 __device__ Move generate_move(const unsigned int& move_number_, const unsigned int & num_nodes_, int * solution_) {
 	float n = static_cast<float>(num_nodes_);
 	float i = static_cast<float>(move_number_);
@@ -111,21 +100,21 @@ __device__ Move generate_move(const unsigned int& move_number_, const unsigned i
 	//(n-2, n-1)
 	float dx = n-2.0f-floor((sqrtf(4.0f*(n-1.0f)*(n-2.0f) - 8.0f*i - 7.0f)-1.0f)/2.0f);
 	float dy = 2.0f+i-(dx-1)*(n-2.0f)+(dx-1.0f)*dx/2.0f;
-	
+
 	unsigned int x = static_cast<unsigned int>(dx);
 	unsigned int y = static_cast<unsigned int>(dy);
 
-    // printf("x: %d y: %d\n", x, y);
+   // printf("x: %d y: %d\n", x, y);
 
 	return Move(x, y, solution_);
 }
 
 
 /**
-  * CUDA kernel that executes local search on the GPU
-  */
-__global__ void evaluate_moves_kernel(const double * base_, const double * vm_slowdown_, const unsigned int * whatisit_, int * solution_, unsigned int *moves_, double * deltas_, const double  fitness, unsigned int num_nodes_, unsigned int num_moves_per_thread_) {
-	
+ * CUDA kernel that executes local search on the GPU
+ */
+__global__ void evaluate_moves_kernel(const Solution solution_, const Environment env_, unsigned int *moves_, double * deltas_, unsigned int num_nodes_, unsigned int num_moves_per_thread_) {
+
 	unsigned int tid = blockIdx.x * blockDim.x + threadIdx.x;
 
 	const unsigned int num_moves = (static_cast<int>(num_nodes_)-2) * (static_cast<int>(num_nodes_)-1)/2;
@@ -133,12 +122,12 @@ __global__ void evaluate_moves_kernel(const double * base_, const double * vm_sl
 	float max_delta = -2.0;
 
 	const unsigned int first_move = tid * num_moves_per_thread_;
-	
+
 	unsigned int best_move = first_move;
 
 	for (int i = first_move; i < (first_move + num_moves_per_thread_); ++i) {
 		if (i < num_moves) {
-			Move move = generate_move(i, num_nodes_, solution_);
+			Move move = generate_move(i, num_nodes_, solution_.allocation);
 			double move_cost = cost(base_, vm_slowndown_, whatisit_, move, num_nodes_);
 			if (move_cost > max_delta) {
 			 	max_delta = move_cost;
@@ -188,23 +177,23 @@ __device__ void reduce_to_maximum(const unsigned int & tid, double (&deltas_shme
 }
 
 /**
-  * Kernel that reduces deltas_ into a single element, and then
-  * applies this move
-  */
+ * Kernel that reduces deltas_ into a single element, and then
+ * applies this move
+ */
 template <unsigned int threads>
 __global__ void apply_best_move_kernel(int* solution_, const double fitness, double* deltas_, unsigned int* moves_, unsigned int num_nodes_, unsigned int deltas_size_) {
 	// Thread id
 	unsigned int tid = blockIdx.x*blockDim.x + threadIdx.x;
 
 	//Shared memory available to all threads to find the minimum delta
-	__shared__ double deltas_shmem[threads]; 
+	__shared__ double deltas_shmem[threads];
 
 	//Shared memory to find the index corresponding to the minimum delta
-	__shared__ unsigned int moves_shmem[threads]; 
+	__shared__ unsigned int moves_shmem[threads];
 
 	//Reduce from num_nodes_ elements to blockDim.x elements
 	deltas_shmem[tid] = 0;
-    unsigned int reducePerThread = (deltas_size_ + threads-1) / threads; // ceiling(deltas_size_/threads)
+   unsigned int reducePerThread = (deltas_size_ + threads-1) / threads; // ceiling(deltas_size_/threads)
 	for (unsigned int i = tid * reducePerThread; i < (tid+1) * reducePerThread; ++i) {
 		if (i < deltas_size_) {
 			if (deltas_[i] > deltas_shmem[tid]) {
@@ -215,7 +204,7 @@ __global__ void apply_best_move_kernel(int* solution_, const double fitness, dou
 	}
 
 	__syncthreads();
-	
+
 	//Now, reduce all elements into a single element
 	// reduce_to_minimum<threads>(tid, deltas_shmem, moves_shmem);
 	reduce_to_maximum<threads>(tid, deltas_shmem, moves_shmem);
@@ -226,13 +215,22 @@ __global__ void apply_best_move_kernel(int* solution_, const double fitness, dou
 	 }
 }
 
-__global__ void test(int * dependency_, const int unsigned size_){
 
-	for(int i = 0; i < size_ ; i++){
-		for(int j = 0; j < size_; j++)
-			dependency_[i * size_ + j] += 1;
-	}
-}
+
+
+
+// __global__ void test(Solution solution_, int size) {
+// 	printf("%d\n", size);
+
+// 	for(int i = 0; i < size; i++){
+// 		printf("ta indo...\n");
+//     	printf("%d\n", solution_.allocation[i]);
+//     	printf("%f\n", solution_.runtime[i]);	
+// 	}
+
+// }
+
+
 
 
 /**
@@ -274,19 +272,50 @@ unsigned int local_search(Chromosome & solution, Data * data) {
 
 	// solution.print();
 
-	//Pointer to memory on the GPU 
-	int * solution_gpu;
-    double * deltas_gpu;
-    unsigned int * moves_gpu;
+	//Pointer to memory on the GPU
+	int *d_allocation;
+	double *d_runtime;
 
-    /* problem structures */
-    double * base_gpu;
-    double * vm_slowdown_gpu;
-    unsigned int * whatisit_gpu;
-    int * dependency_gpu;
-    unsigned int static_vm = data->static_vm;
+	double *d_slowdown;
+	double *d_base;
+	unsigned int *d_whatisit;
 
-   	//Allocate GPU memory for environmet's information
+	Solution h_solution;
+	
+	Environment h_env;
+    check_cudaError(cudaMalloc(&(d_slowdown), data->vm_slowdown.size() * sizeof(double)));
+    check_cudaError(cudaMalloc(&(d_base), data->base.size() * sizeof(double)));
+    check_cudaError(cudaMalloc(&(d_whatisit), data->whatisit.size() * sizeof(unsigned int)));
+
+    check_cudaError(cudaMemcpy(d_slowdown, &(solution.vm_slowdown[0]),solution.vm_slowdown.size() * sizeof(double), cudaMemcpyHostToDevice));
+    check_cudaError(cudaMemcpy(d_base, &(data->base[0]),data->base.size() * sizeof(double), cudaMemcpyHostToDevice));
+    check_cudaError(cudaMemcpy(d_whatisit, &(data->whatisit[0]),data->whatisit.size() * sizeof(unsigned int), cudaMemcpyHostToDevice));
+
+    h_env.slowdown = d_slowdown;
+    h_env.base = d_base;
+    h_env.whatisit = d_whatisit;
+
+
+
+    check_cudaError(cudaMalloc(&(d_allocation), solution.allocation.size() * sizeof(int)));
+    check_cudaError(cudaMalloc(&(d_runtime), solution.runtime_vector.size() * sizeof(double)));
+
+    check_cudaError(cudaMemcpy(d_allocation, &(solution.allocation[0]),solution.allocation.size() * sizeof(int), cudaMemcpyHostToDevice));
+    check_cudaError(cudaMemcpy(d_runtime, &(solution.runtime_vector[0]),solution.runtime_vector.size() * sizeof(double), cudaMemcpyHostToDevice));
+
+
+    h_solution.allocation = d_allocation;
+    h_solution.runtime = d_runtime;
+
+
+
+   double * deltas_gpu;
+   unsigned int * moves_gpu;
+
+
+   unsigned int static_vm = data->static_vm;
+
+  	//Allocate GPU memory for environmet's information
 	check_cudaError(cudaMalloc(&base_gpu, data->base.size() * sizeof(double)));
 	check_cudaError(cudaMalloc(&vm_slowdown_gpu, data->vm_slowdown.size() * sizeof(double)));
 	check_cudaError(cudaMalloc(&whatisit_gpu, data->whatisit.size() * sizeof(unsigned int)));
@@ -296,20 +325,20 @@ unsigned int local_search(Chromosome & solution, Data * data) {
 	check_cudaError(cudaMemcpy(whatisit_gpu, &(data->whatisit[0]), data->whatisit.size() * sizeof(unsigned int), cudaMemcpyDeviceToHost));
 
 	//Allocate GPU memory for solution
-    check_cudaError(cudaMalloc(&solution_gpu, solution.allocation.size() * sizeof(int)));
-    //Copy solution to GPU
+   check_cudaError(cudaMalloc(&solution_gpu.solution, solution.allocation.size() * sizeof(int)));
+   //Copy solution to GPU
 	check_cudaError(cudaMemcpy(solution_gpu, &(solution.allocation[0]), solution.allocation.size() * sizeof(int), cudaMemcpyHostToDevice));
 
-    //Allocate memory for deltas
-    check_cudaError(cudaMalloc(&deltas_gpu, num_evaluate_threads * sizeof(double)));
-    //Allocate memory for moves
-    check_cudaError(cudaMalloc(&moves_gpu, num_evaluate_threads * sizeof(unsigned int)));
+   //Allocate memory for deltas
+   check_cudaError(cudaMalloc(&deltas_gpu, num_evaluate_threads * sizeof(double)));
+   //Allocate memory for moves
+   check_cudaError(cudaMalloc(&moves_gpu, num_evaluate_threads * sizeof(unsigned int)));
 
 	evaluate_moves_kernel <<< evaluate_grid, evaluate_block >>>(base_gpu, vm_slowdown_gpu, whatisit_gpu, solution_gpu, moves_gpu, deltas_gpu, solution.fitness, num_nodes, num_moves_per_thread);
 	// apply_best_move_kernel<num_apply_threads><<<apply_grid, apply_block>>>(solution_gpu, solution.fitness, deltas_gpu, moves_gpu, num_nodes, num_evaluate_threads);
-	
-	
-	double max_delta = 0.0; 
+
+
+	double max_delta = 0.0;
 	check_cudaError(cudaMemcpy(&max_delta, &deltas_gpu[0], sizeof(double), cudaMemcpyDeviceToHost));
 
 	//Copy solution to CPU
@@ -327,9 +356,9 @@ unsigned int local_search(Chromosome & solution, Data * data) {
 
 	cout << "Print after: " << endl;
 	cout << "max_delta: " << max_delta << endl;
-    
- 	solution.computeFitness();
-	
+
+	solution.computeFitness();
+
 
 	return 0;
 }
