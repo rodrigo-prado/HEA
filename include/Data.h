@@ -78,18 +78,41 @@ public:
 
 	unordered_map <string, int> key_map;
 
-	vector<int> static_vms;
+
 	vector<int> height;
     vector<double> storage_vet; //storage of vm
+
+	/* auxiliary structure to GPU local search */
+	vector<double> vm_slowdown;
+	vector<double> base; // task base time or file size
+	vector<unsigned int> whatisit; // 1- task 2 - dynamic file 3 - static file
+	vector<vector<int>> dependency; //matrix dependencia das tarefas e dos arquivos.
+
+	unsigned int static_vm;
+
+
 
 	Data(string dag_file, string vcl_file){
 		loadFiles(dag_file, vcl_file);
 		height.resize(task_size, -1);
 		computeHeight(this->id_root, 0);
 	}
+
 	virtual ~Data(){}
 
+	string getTag(int id){
+		auto task = task_map.find(id);
 
+		if(task != task_map.end())
+			return task->second.name;
+		else{
+			auto file =  file_map.find(id);
+			if(file != file_map.end())
+				return file->second.name;
+			else
+				return "None";
+		}
+	}
 
 
 
@@ -115,6 +138,12 @@ private:
 		file_size = sfile_size + dfile_size;
 		size = task_size + dfile_size;
 
+		// resize GPU structures
+		whatisit.resize(size + sfile_size);
+		base.resize(size + sfile_size);
+		dependency.resize(size + sfile_size);
+
+
 		getline(in_file, line); //reading blank line
 
 		//start initial integer_id of elements
@@ -135,7 +164,7 @@ private:
 			auto place = -1;
 
 			if(i < sfile_size){
-				place = stoi(strs[3]);
+				static_vm = place = stoi(strs[3]);
 				id = id_sfile;
 				id_sfile += 1;
 				is_static = true;
@@ -143,6 +172,10 @@ private:
 				id = id_dfile;
 				id_dfile += 1;
 			}
+
+			// Update GPU structures
+			base[id] = file_size;
+			whatisit[id] =  is_static ? 3 : 2;
 
 			auto afile = File(file_name, id, file_size, is_static, place);
 			total_file += file_size;
@@ -175,6 +208,9 @@ private:
 				getline(in_file, line);
 				auto fileKey = key_map.find(line)->second;
 				input.push_back(fileKey);
+
+				dependency[current_task].push_back(fileKey);
+				dependency[fileKey].push_back(current_task);
 			}
 
 			//reading output files
@@ -183,8 +219,14 @@ private:
 				auto fileKey = key_map.find(line)->second;
 				//update file
 				output.push_back(fileKey);
+				dependency[current_task].push_back(fileKey);
+				dependency[fileKey].push_back(current_task);
+
 			}
 
+			//update gpu structure
+			base[current_task] = base_time;
+			whatisit[current_task] = 1;
 
 			Task atask(task_name, current_task, tag, base_time, input, output);
 
@@ -193,10 +235,17 @@ private:
 		}
 		getline(in_file, line); //reading blank line
 
+		for(int i = 0; i < (size + sfile_size); i++)
+			dependency[i].resize((size + sfile_size), -1);
+
 		//Update Root and Sink tasks
 		id_root = 0;
 		id_sink = id_task;
 		id_task += 1;
+
+		//update GPU structure
+		base[id_root] = base[id_sink] = 0;
+		whatisit[id_root] = whatisit[id_sink] = 1;
 
 		key_map.insert(make_pair("root", id_root));
 		key_map.insert(make_pair("sink", id_sink));
@@ -280,6 +329,9 @@ private:
 			double storage = stod(strs[3]) * 1024; // GB to MB
 			double bandwidth = stod(strs[4]);
 			double cost = stod(strs[5]);
+
+			//Used on GPU local search
+			vm_slowdown.push_back(slowdown);
 
 			VMachine avm(vm_name, vm_id, slowdown, storage, cost, bandwidth, type_id);
 			vm_map.insert(make_pair(vm_id, avm));

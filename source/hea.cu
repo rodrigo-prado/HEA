@@ -397,7 +397,7 @@ Chromosome run(string name_workflow, string name_cluster)  {
     Chromosome heftChr(HEFT(data));
 
 
-    local_search(heftChr);
+    local_search(heftChr, data);
     exit(0);
 
 

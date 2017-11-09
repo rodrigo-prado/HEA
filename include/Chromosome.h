@@ -206,6 +206,34 @@ public:
             cout << endl;
         }
 
+        cout << "\nsolution_vector: " << endl;
+        for(auto i = 0; i < allocation.size(); i++){
+
+            cout << i << ": " <<  data->getTag(i) << " [" << allocation[i] << "], ";
+
+        }
+        cout << endl;
+
+
+        cout << "\nGPU structure " << endl;
+        cout << "base: " << endl;
+        for(auto base : data->base)
+            cout << base << ", ";
+        cout << endl;
+
+        cout << "type: " << endl;
+        for(auto type : data->whatisit)
+            cout << type << ", ";
+        cout << endl;
+
+        cout << "files: " << endl;
+        for(int i = 0; i < data->dependency.size(); i++){
+            cout << data->getTag(i) << ": ";
+            for(auto id : data->dependency[i])
+                cout << id << ", ";
+            cout << endl;
+        }
+
 
         cout << "\nstarttime_vector: [";
         for(auto time : starttime_vector)
