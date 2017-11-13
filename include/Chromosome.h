@@ -226,13 +226,6 @@ public:
             cout << type << ", ";
         cout << endl;
 
-        cout << "files: " << endl;
-        for(int i = 0; i < data->dependency.size(); i++){
-            cout << data->getTag(i) << ": ";
-            for(auto id : data->dependency[i])
-                cout << id << ", ";
-            cout << endl;
-        }
 
 
         cout << "\nstarttime_vector: [";

@@ -85,9 +85,8 @@ public:
 	/* auxiliary structure to GPU local search */
 	vector<double> vm_slowdown;
 	vector<double> base; // task base time or file size
+	vector<double> link; // vm link
 	vector<unsigned int> whatisit; // 1- task 2 - dynamic file 3 - static file
-	vector<vector<int>> dependency; //matrix dependencia das tarefas e dos arquivos.
-
 	unsigned int static_vm;
 
 
@@ -141,8 +140,7 @@ private:
 		// resize GPU structures
 		whatisit.resize(size + sfile_size);
 		base.resize(size + sfile_size);
-		dependency.resize(size + sfile_size);
-
+		
 
 		getline(in_file, line); //reading blank line
 
@@ -209,8 +207,6 @@ private:
 				auto fileKey = key_map.find(line)->second;
 				input.push_back(fileKey);
 
-				dependency[current_task].push_back(fileKey);
-				dependency[fileKey].push_back(current_task);
 			}
 
 			//reading output files
@@ -219,9 +215,6 @@ private:
 				auto fileKey = key_map.find(line)->second;
 				//update file
 				output.push_back(fileKey);
-				dependency[current_task].push_back(fileKey);
-				dependency[fileKey].push_back(current_task);
-
 			}
 
 			//update gpu structure
@@ -235,9 +228,7 @@ private:
 		}
 		getline(in_file, line); //reading blank line
 
-		for(int i = 0; i < (size + sfile_size); i++)
-			dependency[i].resize((size + sfile_size), -1);
-
+		
 		//Update Root and Sink tasks
 		id_root = 0;
 		id_sink = id_task;
@@ -332,6 +323,8 @@ private:
 
 			//Used on GPU local search
 			vm_slowdown.push_back(slowdown);
+			link.push_back(bandwidth);
+
 
 			VMachine avm(vm_name, vm_id, slowdown, storage, cost, bandwidth, type_id);
 			vm_map.insert(make_pair(vm_id, avm));
