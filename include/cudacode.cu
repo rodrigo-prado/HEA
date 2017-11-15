@@ -76,8 +76,8 @@ __device__ double cost(const Environment env_, const Solution solution_, const M
 	int vmi = solution_.allocation[i];
 	int vmj = solution_.allocation[j];
 
-
-	double cost = solution_.runtime[i] + solution_.runtime[j];
+	double icost = solution_.runtime[i] + solution_.runtime[j]; 
+	double cost =  icost;
 
 	if(vmi != vmj){
 		double fiti, fitj;
@@ -93,7 +93,7 @@ __device__ double cost(const Environment env_, const Solution solution_, const M
 
 		cost = fiti + fitj;
 	}
-
+	printf("icost: %f  Cost: %f i: %d j: %d\n", icost, cost, i, j);
 	return cost; // não houve mudança no fitness
 
 }
@@ -105,6 +105,8 @@ __device__ void apply_move(Move& move) {
 	unsigned int tmp = move.solution[move.i];
 	move.solution[move.i] = move.solution[move.j];
 	move.solution[move.j] = tmp;
+
+	printf("Move applied: %d[%d] %d[%d]\n", move.solution[move.i], move.i, move.solution[move.j], move.j);
 }
 
 /**
@@ -274,6 +276,8 @@ unsigned int local_search(Chromosome & solution, Data * data) {
 	cout << "num_moves_per_thread: " << num_moves_per_thread << endl;
 	cout << "num_apply_threads: " << num_apply_threads << endl;
 
+
+	// cout << "Solution without local search: " << endl;
 	// solution.print();
 
 	//Pointer to memory on the GPU
@@ -285,12 +289,13 @@ unsigned int local_search(Chromosome & solution, Data * data) {
 	double *d_link;
 	unsigned int *d_whatisit;
 
-
-  	//Allocate GPU memory for environmet's information
+	//Allocate GPU memory for environmet's information
     check_cudaError(cudaMalloc(&(d_slowdown), data->vm_slowdown.size() * sizeof(double)));
     check_cudaError(cudaMalloc(&(d_base), data->base.size() * sizeof(double)));
     check_cudaError(cudaMalloc(&(d_link), data->link.size() * sizeof(double)));
     check_cudaError(cudaMalloc(&(d_whatisit), data->whatisit.size() * sizeof(unsigned int)));
+
+
 
     // CPU -> GPU //Copy informations to GPU
     check_cudaError(cudaMemcpy(d_slowdown, &(data->vm_slowdown[0]),data->vm_slowdown.size() * sizeof(double), cudaMemcpyHostToDevice));
@@ -322,6 +327,7 @@ unsigned int local_search(Chromosome & solution, Data * data) {
 
 
 
+
    double * h_deltas;
    unsigned int * h_moves;
 
@@ -350,7 +356,7 @@ unsigned int local_search(Chromosome & solution, Data * data) {
 
 	check_cudaError(cudaDeviceReset());
 
-	cout << "Print after: " << endl;
+	cout << "Print after local search: " << endl;
 	cout << "max_delta: " << min_delta << endl;
 
 	solution.computeFitness();

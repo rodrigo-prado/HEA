@@ -240,6 +240,7 @@ inline Chromosome localSearchN1(const Data *data, Chromosome ch) {
                 iter_swap(ch.allocation.begin() + i, ch.allocation.begin() + j);
                 ch.computeFitness();
                 if (ch.fitness < old_ch.fitness) {
+                    printf("Move applied: %d[%d] %d[%d]\n", ch.allocation[i], ch.allocation[j], i, j);
                     return ch;
                 }
                 //return elements
@@ -397,10 +398,6 @@ Chromosome run(string name_workflow, string name_cluster)  {
     Chromosome heftChr(HEFT(data));
 
 
-    local_search(heftChr, data);
-    exit(0);
-
-
     Population.push_back(minminChr);
     Population.push_back(heftChr);
 
@@ -429,6 +426,27 @@ Chromosome run(string name_workflow, string name_cluster)  {
         Population.push_back(Chromosome(data, setting->lambda));
     }
 
+    char c;
+        
+    for(auto chr : Population){
+
+        cout << "Solution before Local search: " << endl;
+        chr.print();
+        cin >> c;
+
+
+        cout << "\n\n\n CPU LOCAL SEARCH: " << endl;
+        auto n1 = localSearchN1(data, chr);
+        n1.print();
+        cin >> c;
+
+        cout << "\n\nGPU LOCAL SEARCH: " << endl;
+        local_search(chr, data);
+        cin >> c;
+
+    }
+
+    exit(0);
 
     // Get best solution from initial population
     Chromosome best(Population[getBest(Population)]);
