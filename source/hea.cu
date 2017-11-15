@@ -3,6 +3,8 @@
 #include "../include/MinMin.h"
 #include "../include/cudacode.cu"
 #include <omp.h>
+#include <time.h>
+
 typedef vector<Chromosome> vect_chrom_type;
 
 struct Settings_struct {
@@ -171,6 +173,46 @@ Chromosome minMinHeuristic(Data *data) {
 }
 
 
+// ========== Cuda Functions ============ //
+
+Environment load_cuda(Data *data){
+    double *d_slowdown;
+    double *d_base;
+    double *d_link;
+    unsigned int *d_whatisit;
+
+    //Allocate GPU memory for environmet's information
+    check_cudaError(cudaMalloc(&(d_slowdown), data->vm_slowdown.size() * sizeof(double)));
+    check_cudaError(cudaMalloc(&(d_base), data->base.size() * sizeof(double)));
+    check_cudaError(cudaMalloc(&(d_link), data->link.size() * sizeof(double)));
+    check_cudaError(cudaMalloc(&(d_whatisit), data->whatisit.size() * sizeof(unsigned int)));
+
+
+
+    // CPU -> GPU //Copy informations to GPU
+    check_cudaError(cudaMemcpy(d_slowdown, &(data->vm_slowdown[0]),data->vm_slowdown.size() * sizeof(double), cudaMemcpyHostToDevice));
+    check_cudaError(cudaMemcpy(d_base, &(data->base[0]),data->base.size() * sizeof(double), cudaMemcpyHostToDevice));
+    check_cudaError(cudaMemcpy(d_link, &(data->link[0]),data->link.size() * sizeof(double), cudaMemcpyHostToDevice));
+    check_cudaError(cudaMemcpy(d_whatisit, &(data->whatisit[0]),data->whatisit.size() * sizeof(unsigned int), cudaMemcpyHostToDevice));
+
+    Environment h_env;
+    
+
+    h_env.slowdown = d_slowdown;
+    h_env.base = d_base;
+    h_env.whatisit = d_whatisit;
+    h_env.link = d_link;
+
+    return h_env;
+}
+
+void free_cuda(Environment h_env){
+    free(h_env.slowdown);
+    free(h_env.base);
+    free(h_env.whatisit);
+    free(h_env.link);
+}
+
 
 
 // ========== Path Relinking ============ //
@@ -240,7 +282,6 @@ inline Chromosome localSearchN1(const Data *data, Chromosome ch) {
                 iter_swap(ch.allocation.begin() + i, ch.allocation.begin() + j);
                 ch.computeFitness();
                 if (ch.fitness < old_ch.fitness) {
-                    printf("Move applied: %d[%d] %d[%d]\n", ch.allocation[i], ch.allocation[j], i, j);
                     return ch;
                 }
                 //return elements
@@ -356,12 +397,15 @@ inline void doNextPopulation(vect_chrom_type &Population) {
 }
 
 // Call all Local Search Functions
-inline void localSearch(vect_chrom_type &Population, Data *data) {
+inline void localSearch(vect_chrom_type &Population, Data *data, Environment & h_env) {
 
     int how_many = setting->alpha * setting->num_chromosomes;
 
     for (int j = 0; j < how_many; j++) {
         auto ch_pos = tournamentSelection(Population);
+
+        Population[ch_pos] = local_search(Population[ch_pos], data, h_env);
+        
         Population[ch_pos] = localSearchN1(data, Population[ch_pos]);
         Population[ch_pos] = localSearchN2(data, Population[ch_pos]);
         Population[ch_pos] = localSearchN3(data, Population[ch_pos]);
@@ -373,6 +417,8 @@ Chromosome run(string name_workflow, string name_cluster)  {
     // Load input Files and the data structures used by the algorithms
     Data *data = new Data(name_workflow, name_cluster);
 
+    // Load datas on  GPU
+    Environment h_env = load_cuda(data);
 
 
 
@@ -426,27 +472,12 @@ Chromosome run(string name_workflow, string name_cluster)  {
         Population.push_back(Chromosome(data, setting->lambda));
     }
 
-    char c;
-        
-    for(auto chr : Population){
+        // clock_t timeIt;
+        // timeIt = clock();        
+        // auto n1 = localSearchN1(data, chr);
+        // timeIt = clock() - timeIt;
+        // float seconds_cpu = ((float)timeIt)/CLOCKS_PER_SEC;
 
-        cout << "Solution before Local search: " << endl;
-        chr.print();
-        cin >> c;
-
-
-        cout << "\n\n\n CPU LOCAL SEARCH: " << endl;
-        auto n1 = localSearchN1(data, chr);
-        n1.print();
-        cin >> c;
-
-        cout << "\n\nGPU LOCAL SEARCH: " << endl;
-        local_search(chr, data);
-        cin >> c;
-
-    }
-
-    exit(0);
 
     // Get best solution from initial population
     Chromosome best(Population[getBest(Population)]);
@@ -463,7 +494,7 @@ Chromosome run(string name_workflow, string name_cluster)  {
         float doit = (float) random() / (float) RAND_MAX;
 
         if (doit <= (setting->localSearch_probability))
-            localSearch(Population, data);
+            localSearch(Population, data, h_env);
 
         // Update best
         auto pos = getBest(Population);
@@ -486,6 +517,8 @@ Chromosome run(string name_workflow, string name_cluster)  {
 
 
             // Apply Local Search
+            
+            best = local_search(best, data, h_env);
 
             best = localSearchN1(data, best);
             best = localSearchN2(data, best);
@@ -503,6 +536,9 @@ Chromosome run(string name_workflow, string name_cluster)  {
 
         doNextPopulation(Population);
     }
+
+
+    free_cuda(h_env);
 
     // return the global best
     return best;

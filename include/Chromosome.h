@@ -206,52 +206,52 @@ public:
             cout << endl;
         }
 
-        cout << "\nsolution_vector: " << endl;
-        for(auto i = 0; i < allocation.size(); i++){
+        // cout << "\nsolution_vector: " << endl;
+        // for(auto i = 0; i < allocation.size(); i++){
 
-            cout << i << ": " <<  data->getTag(i) << " [" << allocation[i] << "], ";
+        //     cout << i << ": " <<  data->getTag(i) << " [" << allocation[i] << "], ";
 
-        }
-        cout << endl;
-
-
-        cout << "\nGPU structure " << endl;
-        cout << "base: " << endl;
-        for(auto base : data->base)
-            cout << base << ", ";
-        cout << endl;
-
-        cout << "type: " << endl;
-        for(auto type : data->whatisit)
-            cout << type << ", ";
-        cout << endl;
+        // }
+        // cout << endl;
 
 
+        // cout << "\nGPU structure " << endl;
+        // cout << "base: " << endl;
+        // for(auto base : data->base)
+        //     cout << base << ", ";
+        // cout << endl;
 
-        cout << "\nstarttime_vector: [";
-        for(auto time : starttime_vector)
-            cout << time << ", ";
-        cout << "]" << endl;
+        // cout << "type: " << endl;
+        // for(auto type : data->whatisit)
+        //     cout << type << ", ";
+        // cout << endl;
 
-        cout << "\nreadtime_vector: [";
-        for(auto time : readtime_vector)
-            cout << time << ", ";
-        cout << "]" << endl;
 
-        cout << "\nruntime_vector: [";
-        for(auto time : runtime_vector)
-            cout << time << ", ";
-        cout << "]" << endl;
 
-        cout << "\nwritetime_vector: [";
-        for(auto time : writetime_vector)
-            cout << time << ", ";
-        cout << "]" << endl;
+        // cout << "\nstarttime_vector: [";
+        // for(auto time : starttime_vector)
+        //     cout << time << ", ";
+        // cout << "]" << endl;
 
-        cout << "\nfitness_vector: [";
-        for(auto time : fitness_vector)
-            cout << time << ", ";
-        cout << "]" << endl;
+        // cout << "\nreadtime_vector: [";
+        // for(auto time : readtime_vector)
+        //     cout << time << ", ";
+        // cout << "]" << endl;
+
+        // cout << "\nruntime_vector: [";
+        // for(auto time : runtime_vector)
+        //     cout << time << ", ";
+        // cout << "]" << endl;
+
+        // cout << "\nwritetime_vector: [";
+        // for(auto time : writetime_vector)
+        //     cout << time << ", ";
+        // cout << "]" << endl;
+
+        // cout << "\nfitness_vector: [";
+        // for(auto time : fitness_vector)
+        //     cout << time << ", ";
+        // cout << "]" << endl;
 
 
       

@@ -76,25 +76,32 @@ __device__ double cost(const Environment env_, const Solution solution_, const M
 	int vmi = solution_.allocation[i];
 	int vmj = solution_.allocation[j];
 
-	double icost = solution_.runtime[i] + solution_.runtime[j]; 
-	double cost =  icost;
+	double initial_cost, final_cost;
+	
+	initial_cost =  final_cost = solution_.runtime[i] + solution_.runtime[j]; 
+	
 
 	if(vmi != vmj){
-		double fiti, fitj;
-		if(env_.whatisit[i] == 1)
-			fiti =  env_.base[i] *  env_.slowdown[vmj];
-		else 
-			fiti = env_.base[i] / env_.link[vmj];
+		double fiti = env_.base[i];
+		double fitj = env_.base[j];
 
 		if(env_.whatisit[i] == 1)
-			fitj =  env_.base[j] *  env_.slowdown[vmi];
+			fiti *= env_.slowdown[vmj];
 		else 
-			fitj = env_.base[j] / env_.link[vmi];
+			fiti /= env_.link[vmj];
 
-		cost = fiti + fitj;
+		if(env_.whatisit[i] == 1)
+			fitj *= env_.slowdown[vmi];
+		else 
+			fitj /= env_.link[vmi];
+
+		final_cost = fiti + fitj;
 	}
-	printf("icost: %f  Cost: %f i: %d j: %d\n", icost, cost, i, j);
-	return cost; // não houve mudança no fitness
+	
+	// if(initial_cost - final_cost > 0)
+	// 	printf("dif: %f initial: %f  final: %f i: %d j: %d\n", initial_cost - final_cost, initial_cost, final_cost, i, j);
+
+	return initial_cost - final_cost; // não houve mudança no fitness
 
 }
 
@@ -106,7 +113,7 @@ __device__ void apply_move(Move& move) {
 	move.solution[move.i] = move.solution[move.j];
 	move.solution[move.j] = tmp;
 
-	printf("Move applied: %d[%d] %d[%d]\n", move.solution[move.i], move.i, move.solution[move.j], move.j);
+	// printf("Move applied: %d[%d] %d[%d]\n", move.solution[move.i], move.i, move.solution[move.j], move.j);
 }
 
 /**
@@ -143,7 +150,9 @@ __global__ void evaluate_moves_kernel(const Environment env_, const Solution sol
 
 	const unsigned int num_moves = (static_cast<int>(num_nodes_)-2) * (static_cast<int>(num_nodes_)-1)/2;
 
-	double min_delta =  fitness;
+	double max_delta =  -1 * fitness;
+
+	// printf("Max delta : %f\n", max_delta);
 
 	const unsigned int first_move = tid * num_moves_per_thread_;
 
@@ -153,14 +162,14 @@ __global__ void evaluate_moves_kernel(const Environment env_, const Solution sol
 		if (i < num_moves) {
 			Move move = generate_move(i, num_nodes_, solution_.allocation);
 			double move_cost = cost(env_, solution_, move, num_nodes_);
-			if (move_cost < min_delta) {
-			 	min_delta = move_cost;
+			if (move_cost > max_delta) {
+			 	max_delta = move_cost;
 			 	best_move = i;
 			}
 		}
 	}
 	// printf("best_move: %d best delta: %f\n", best_move, max_delta);
-	deltas_[tid] = min_delta;
+	deltas_[tid] = max_delta;
 	moves_[tid] = best_move;
 }
 
@@ -229,7 +238,7 @@ __global__ void apply_best_move_kernel(const Solution solution_, double* deltas_
 
 	//Now, reduce all elements into a single element
 	// reduce_to_minimum<threads>(tid, deltas_shmem, moves_shmem);
-	reduce_to_minimum<threads>(tid, deltas_shmem, moves_shmem);
+	reduce_to_maximum<threads>(tid, deltas_shmem, moves_shmem);
 	if (tid == 0) {
 			Move move = generate_move(moves_shmem[0], num_nodes_, solution_.allocation);
 			apply_move(move);
@@ -244,7 +253,7 @@ __global__ void apply_best_move_kernel(const Solution solution_, double* deltas_
 * @param solution:     Current solution, will be changed during local search
 * @param neighborhood: Collection of moves == potential neighbors
 */
-unsigned int local_search(Chromosome & solution, Data * data) {
+Chromosome local_search(Chromosome solution_old,  Data * data, Environment h_env) {
 	//Number of legal moves. 
 	//We do not want to swap the first node, which means we have n-1 nodes we can swap
 	//For the first node, we then have n-2 nodes to swap with, 
@@ -252,6 +261,16 @@ unsigned int local_search(Chromosome & solution, Data * data) {
 	//and for the n-2'th node, we have 1 node to swap with.
 	//which gives us sum_i=1^{n-2} i legal swaps,
 	//or (n-2)(n-1)/2 legal swaps
+
+	// cudaEvent_t start, stop;
+
+	// cudaEventCreate(&start);
+	// cudaEventCreate(&stop);
+	// cudaEventRecord(start, cudaEventDefault);
+
+
+	Chromosome solution(solution_old);
+	solution.computeFitness();
 
 	const unsigned int num_nodes = solution.allocation.size() - 1;
 	const unsigned int num_moves = (num_nodes-2)*(num_nodes-1)/2;
@@ -270,11 +289,11 @@ unsigned int local_search(Chromosome & solution, Data * data) {
 	const dim3 apply_grid(1);
 
 
-	cout << "num_nodes: " << num_nodes << endl;
-	cout << "num_moves: "  << num_moves << endl;
-	cout << "num_evaluate_threads: " << num_evaluate_threads << endl;
-	cout << "num_moves_per_thread: " << num_moves_per_thread << endl;
-	cout << "num_apply_threads: " << num_apply_threads << endl;
+	// cout << "num_nodes: " << num_nodes << endl;
+	// cout << "num_moves: "  << num_moves << endl;
+	// cout << "num_evaluate_threads: " << num_evaluate_threads << endl;
+	// cout << "num_moves_per_thread: " << num_moves_per_thread << endl;
+	// cout << "num_apply_threads: " << num_apply_threads << endl;
 
 
 	// cout << "Solution without local search: " << endl;
@@ -283,32 +302,6 @@ unsigned int local_search(Chromosome & solution, Data * data) {
 	//Pointer to memory on the GPU
 	int *d_allocation;
 	double *d_runtime;
-
-	double *d_slowdown;
-	double *d_base;
-	double *d_link;
-	unsigned int *d_whatisit;
-
-	//Allocate GPU memory for environmet's information
-    check_cudaError(cudaMalloc(&(d_slowdown), data->vm_slowdown.size() * sizeof(double)));
-    check_cudaError(cudaMalloc(&(d_base), data->base.size() * sizeof(double)));
-    check_cudaError(cudaMalloc(&(d_link), data->link.size() * sizeof(double)));
-    check_cudaError(cudaMalloc(&(d_whatisit), data->whatisit.size() * sizeof(unsigned int)));
-
-
-
-    // CPU -> GPU //Copy informations to GPU
-    check_cudaError(cudaMemcpy(d_slowdown, &(data->vm_slowdown[0]),data->vm_slowdown.size() * sizeof(double), cudaMemcpyHostToDevice));
-    check_cudaError(cudaMemcpy(d_base, &(data->base[0]),data->base.size() * sizeof(double), cudaMemcpyHostToDevice));
-    check_cudaError(cudaMemcpy(d_link, &(data->link[0]),data->link.size() * sizeof(double), cudaMemcpyHostToDevice));
-    check_cudaError(cudaMemcpy(d_whatisit, &(data->whatisit[0]),data->whatisit.size() * sizeof(unsigned int), cudaMemcpyHostToDevice));
-
-    Environment h_env;
-
-    h_env.slowdown = d_slowdown;
-    h_env.base = d_base;
-    h_env.whatisit = d_whatisit;
-    h_env.link = d_link;
 
 
     //Allocate GPU memory for solution
@@ -340,29 +333,28 @@ unsigned int local_search(Chromosome & solution, Data * data) {
    apply_best_move_kernel<num_apply_threads><<<apply_grid, apply_block>>>(h_solution, h_deltas, h_moves, num_nodes, num_evaluate_threads);
 
 
-	double min_delta = 0.0;
-	check_cudaError(cudaMemcpy(&min_delta, &h_deltas[0], sizeof(double), cudaMemcpyDeviceToHost));
+	double max_delta = 0.0;
+	check_cudaError(cudaMemcpy(&max_delta, &h_deltas[0], sizeof(double), cudaMemcpyDeviceToHost));
 
 	//Copy solution to CPU
 	check_cudaError(cudaMemcpy(&(solution.allocation[0]), h_solution.allocation, solution.allocation.size() * sizeof(int), cudaMemcpyDeviceToHost));
 
 	
-	// cudaFree(h_deltas);
-	// cudaFree(h_moves);
+	cudaFree(h_deltas);
+	cudaFree(h_moves);
 
-	// cudaFree(base_gpu);
-	// cudaFree(vm_slowdown_gpu);
-	// cudaFree(whatisit_gpu);
-
-	check_cudaError(cudaDeviceReset());
-
-	cout << "Print after local search: " << endl;
-	cout << "max_delta: " << min_delta << endl;
-
+	cudaFree(d_allocation);
+	cudaFree(d_runtime);
+	
 	solution.computeFitness();
-	solution.print();
+	
+	// cudaEventRecord(stop, cudaEventDefault);
+	// cudaEventSynchronize(stop);
+ 	// cudaEventElapsedTime(&elapsedTime, start, stop);
 
-	return 0;
+
+
+	return solution.fitness < solution_old.fitness ? solution : solution_old;
 }
 
 
