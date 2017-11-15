@@ -406,7 +406,7 @@ inline void localSearch(vect_chrom_type &Population, Data *data, Environment & h
 
         Population[ch_pos] = local_search(Population[ch_pos], data, h_env);
         
-        Population[ch_pos] = localSearchN1(data, Population[ch_pos]);
+        // Population[ch_pos] = localSearchN1(data, Population[ch_pos]);
         Population[ch_pos] = localSearchN2(data, Population[ch_pos]);
         Population[ch_pos] = localSearchN3(data, Population[ch_pos]);
     }
@@ -520,7 +520,7 @@ Chromosome run(string name_workflow, string name_cluster)  {
             
             best = local_search(best, data, h_env);
 
-            best = localSearchN1(data, best);
+            // best = localSearchN1(data, best);
             best = localSearchN2(data, best);
             best = localSearchN3(data, best);
 
@@ -538,7 +538,8 @@ Chromosome run(string name_workflow, string name_cluster)  {
     }
 
 
-    free_cuda(h_env);
+    // free_cuda(h_env);
+    cudaDeviceReset();
 
     // return the global best
     return best;
