@@ -1,0 +1,35 @@
+##0##:
+./HEA -c ../input/cluster.vcl -w ../input/Workflows/Sipht_100.xml.dag
+ Best fitness: 90.3833(min) Runtime: 6377(sec)
+
+ err:  
+
+###############
+##1##:
+./HEA -c ../input/cluster.vcl -w ../input/Workflows/Sipht_100.xml.dag
+ Best fitness: 93.2(min) Runtime: 3559.37(sec)
+
+ err:  
+
+###############
+##2##:
+./HEA -c ../input/cluster.vcl -w ../input/Workflows/Sipht_100.xml.dag
+ Best fitness: 90.8667(min) Runtime: 1739.92(sec)
+
+ err:  
+
+###############
+##3##:
+./HEA -c ../input/cluster.vcl -w ../input/Workflows/Sipht_100.xml.dag
+ Best fitness: 91.2(min) Runtime: 3907.42(sec)
+
+ err:  
+
+###############
+##4##:
+./HEA -c ../input/cluster.vcl -w ../input/Workflows/Sipht_100.xml.dag
+ Best fitness: 90.6667(min) Runtime: 3212.65(sec)
+
+ err:  
+
+###############

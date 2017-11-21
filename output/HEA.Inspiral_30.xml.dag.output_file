@@ -1,0 +1,35 @@
+##0##:
+./HEA -c ../input/cluster.vcl -w ../input/Workflows/Inspiral_30.xml.dag
+ Best fitness: 26.2333(min) Runtime: 47.4773(sec)
+
+ err:  
+
+###############
+##1##:
+./HEA -c ../input/cluster.vcl -w ../input/Workflows/Inspiral_30.xml.dag
+ Best fitness: 26.2333(min) Runtime: 46.8559(sec)
+
+ err:  
+
+###############
+##2##:
+./HEA -c ../input/cluster.vcl -w ../input/Workflows/Inspiral_30.xml.dag
+ Best fitness: 26.25(min) Runtime: 40.3517(sec)
+
+ err:  
+
+###############
+##3##:
+./HEA -c ../input/cluster.vcl -w ../input/Workflows/Inspiral_30.xml.dag
+ Best fitness: 26.2333(min) Runtime: 56.9508(sec)
+
+ err:  
+
+###############
+##4##:
+./HEA -c ../input/cluster.vcl -w ../input/Workflows/Inspiral_30.xml.dag
+ Best fitness: 26.25(min) Runtime: 49.293(sec)
+
+ err:  
+
+###############

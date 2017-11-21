@@ -1,0 +1,35 @@
+##0##:
+./HEA -c ../input/cluster.vcl -w ../input/Workflows/CyberShake_30.xml.dag
+ Best fitness: 12(min) Runtime: 45.2284(sec)
+
+ err:  
+
+###############
+##1##:
+./HEA -c ../input/cluster.vcl -w ../input/Workflows/CyberShake_30.xml.dag
+ Best fitness: 12.0333(min) Runtime: 58.3509(sec)
+
+ err:  
+
+###############
+##2##:
+./HEA -c ../input/cluster.vcl -w ../input/Workflows/CyberShake_30.xml.dag
+ Best fitness: 12.0333(min) Runtime: 39.3751(sec)
+
+ err:  
+
+###############
+##3##:
+./HEA -c ../input/cluster.vcl -w ../input/Workflows/CyberShake_30.xml.dag
+ Best fitness: 12(min) Runtime: 53.4527(sec)
+
+ err:  
+
+###############
+##4##:
+./HEA -c ../input/cluster.vcl -w ../input/Workflows/CyberShake_30.xml.dag
+ Best fitness: 12(min) Runtime: 101.446(sec)
+
+ err:  
+
+###############

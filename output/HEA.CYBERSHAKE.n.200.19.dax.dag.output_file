@@ -1,0 +1,35 @@
+##0##:
+./HEA -c ../input/cluster.vcl -w ../input/Workflows/CYBERSHAKE.n.200.19.dax.dag
+ Best fitness: 41.6333(min) Runtime: 2397(sec)
+
+ err:  
+
+###############
+##1##:
+./HEA -c ../input/cluster.vcl -w ../input/Workflows/CYBERSHAKE.n.200.19.dax.dag
+ Best fitness: 41.3333(min) Runtime: 3984.92(sec)
+
+ err:  
+
+###############
+##2##:
+./HEA -c ../input/cluster.vcl -w ../input/Workflows/CYBERSHAKE.n.200.19.dax.dag
+ Best fitness: 41.1(min) Runtime: 5234.84(sec)
+
+ err:  
+
+###############
+##3##:
+./HEA -c ../input/cluster.vcl -w ../input/Workflows/CYBERSHAKE.n.200.19.dax.dag
+ Best fitness: 41.4(min) Runtime: 5010.68(sec)
+
+ err:  
+
+###############
+##4##:
+./HEA -c ../input/cluster.vcl -w ../input/Workflows/CYBERSHAKE.n.200.19.dax.dag
+ Best fitness: 41.4667(min) Runtime: 4924.89(sec)
+
+ err:  
+
+###############

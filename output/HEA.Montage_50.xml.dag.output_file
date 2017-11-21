@@ -1,0 +1,35 @@
+##0##:
+./HEA -c ../input/cluster.vcl -w ../input/Workflows/Montage_50.xml.dag
+ Best fitness: 2.83333(min) Runtime: 171.729(sec)
+
+ err:  
+
+###############
+##1##:
+./HEA -c ../input/cluster.vcl -w ../input/Workflows/Montage_50.xml.dag
+ Best fitness: 2.85(min) Runtime: 184.626(sec)
+
+ err:  
+
+###############
+##2##:
+./HEA -c ../input/cluster.vcl -w ../input/Workflows/Montage_50.xml.dag
+ Best fitness: 2.83333(min) Runtime: 123.262(sec)
+
+ err:  
+
+###############
+##3##:
+./HEA -c ../input/cluster.vcl -w ../input/Workflows/Montage_50.xml.dag
+ Best fitness: 2.85(min) Runtime: 188.158(sec)
+
+ err:  
+
+###############
+##4##:
+./HEA -c ../input/cluster.vcl -w ../input/Workflows/Montage_50.xml.dag
+ Best fitness: 2.83333(min) Runtime: 198.894(sec)
+
+ err:  
+
+###############
