@@ -1,0 +1,40 @@
+##0##:
+./HEA_cuda -c ../input/cluster.vcl -w ../input/Workflows/Montage_200.xml.dag 
+ 
+ err: terminate called after throwing an instance of 'std::invalid_argument'
+  what():  stoi
+ 
+
+###############
+##1##:
+./HEA_cuda -c ../input/cluster.vcl -w ../input/Workflows/Montage_200.xml.dag 
+ 
+ err: terminate called after throwing an instance of 'std::invalid_argument'
+  what():  stoi
+ 
+
+###############
+##2##:
+./HEA_cuda -c ../input/cluster.vcl -w ../input/Workflows/Montage_200.xml.dag 
+ 
+ err: terminate called after throwing an instance of 'std::invalid_argument'
+  what():  stoi
+ 
+
+###############
+##3##:
+./HEA_cuda -c ../input/cluster.vcl -w ../input/Workflows/Montage_200.xml.dag 
+ 
+ err: terminate called after throwing an instance of 'std::invalid_argument'
+  what():  stoi
+ 
+
+###############
+##4##:
+./HEA_cuda -c ../input/cluster.vcl -w ../input/Workflows/Montage_200.xml.dag 
+ 
+ err: terminate called after throwing an instance of 'std::invalid_argument'
+  what():  stoi
+ 
+
+###############

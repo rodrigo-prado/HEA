@@ -1,0 +1,102 @@
+##0##:
+./HEA_cuda -c ../input/cluster.vcl -w ../input/Workflows/Sipht_30.xml.dag
+ 
+ err:  
+
+###############
+##1##:
+./HEA_cuda -c ../input/cluster.vcl -w ../input/Workflows/Sipht_30.xml.dag
+ 
+ err:  
+
+###############
+##2##:
+./HEA_cuda -c ../input/cluster.vcl -w ../input/Workflows/Sipht_30.xml.dag
+ 
+ err:  
+
+###############
+##3##:
+./HEA_cuda -c ../input/cluster.vcl -w ../input/Workflows/Sipht_30.xml.dag
+ 
+ err:  
+
+###############
+##4##:
+./HEA_cuda -c ../input/cluster.vcl -w ../input/Workflows/Sipht_30.xml.dag
+ 
+ err:  
+
+###############
+##0##:
+./HEA_cuda -c ../input/cluster.vcl -w ../input/Workflows/Sipht_30.xml.dag
+ rand seed: 1510829146
+Best fitness: 56.8333(min) Runtime: 31.1728(sec)
+
+ err:  
+
+###############
+##1##:
+./HEA_cuda -c ../input/cluster.vcl -w ../input/Workflows/Sipht_30.xml.dag
+ 
+ err:  
+
+###############
+##2##:
+./HEA_cuda -c ../input/cluster.vcl -w ../input/Workflows/Sipht_30.xml.dag
+ 
+ err:  
+
+###############
+##3##:
+./HEA_cuda -c ../input/cluster.vcl -w ../input/Workflows/Sipht_30.xml.dag
+ 
+ err:  
+
+###############
+##4##:
+./HEA_cuda -c ../input/cluster.vcl -w ../input/Workflows/Sipht_30.xml.dag
+ 
+ err:  
+
+###############
+##0##:
+./HEA_cuda -c ../input/cluster.vcl -w ../input/Workflows/Sipht_30.xml.dag
+ rand seed: 1510829230
+Best fitness: 56.8333(min) Runtime: 46.9081(sec)
+
+ err:  
+
+###############
+##1##:
+./HEA_cuda -c ../input/cluster.vcl -w ../input/Workflows/Sipht_30.xml.dag
+ rand seed: 1510829276
+Best fitness: 56.8333(min) Runtime: 43.559(sec)
+
+ err:  
+
+###############
+##2##:
+./HEA_cuda -c ../input/cluster.vcl -w ../input/Workflows/Sipht_30.xml.dag
+ rand seed: 1510829320
+Best fitness: 56.8333(min) Runtime: 49.4963(sec)
+
+ err:  
+
+###############
+##3##:
+./HEA_cuda -c ../input/cluster.vcl -w ../input/Workflows/Sipht_30.xml.dag
+ rand seed: 1510829370
+Best fitness: 56.8333(min) Runtime: 47.5686(sec)
+
+ err:  
+
+###############
+##4##:
+./HEA_cuda -c ../input/cluster.vcl -w ../input/Workflows/Sipht_30.xml.dag
+ rand seed: 1510829417
+Best fitness: 56.8333(min) Runtime: 58.4709(sec)
+
+ err:  
+
+###############

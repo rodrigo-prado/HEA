@@ -1,0 +1,40 @@
+##0##:
+./HEA_cuda -c ../input/cluster.vcl -w ../input/Workflows/Inspiral_30.xml.dag
+ rand seed: 1510918870
+Best fitness: 26.25(min) Runtime: 22.9083(sec)
+
+ err:  
+
+###############
+##1##:
+./HEA_cuda -c ../input/cluster.vcl -w ../input/Workflows/Inspiral_30.xml.dag
+ rand seed: 1510918892
+Best fitness: 26.3833(min) Runtime: 8.71944(sec)
+
+ err:  
+
+###############
+##2##:
+./HEA_cuda -c ../input/cluster.vcl -w ../input/Workflows/Inspiral_30.xml.dag
+ rand seed: 1510918901
+Best fitness: 26.4167(min) Runtime: 12.0038(sec)
+
+ err:  
+
+###############
+##3##:
+./HEA_cuda -c ../input/cluster.vcl -w ../input/Workflows/Inspiral_30.xml.dag
+ rand seed: 1510918913
+Best fitness: 26.3333(min) Runtime: 22.5711(sec)
+
+ err:  
+
+###############
+##4##:
+./HEA_cuda -c ../input/cluster.vcl -w ../input/Workflows/Inspiral_30.xml.dag
+ rand seed: 1510918936
+Best fitness: 26.3167(min) Runtime: 12.974(sec)
+
+ err:  
+
+###############

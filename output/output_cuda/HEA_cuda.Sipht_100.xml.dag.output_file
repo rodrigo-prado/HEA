@@ -1,0 +1,40 @@
+##0##:
+./HEA_cuda -c ../input/cluster.vcl -w ../input/Workflows/Sipht_100.xml.dag
+ rand seed: 1510830574
+Best fitness: 94.9833(min) Runtime: 331.372(sec)
+
+ err:  
+
+###############
+##1##:
+./HEA_cuda -c ../input/cluster.vcl -w ../input/Workflows/Sipht_100.xml.dag
+ rand seed: 1510830905
+Best fitness: 91.0167(min) Runtime: 518.741(sec)
+
+ err:  
+
+###############
+##2##:
+./HEA_cuda -c ../input/cluster.vcl -w ../input/Workflows/Sipht_100.xml.dag
+ rand seed: 1510831424
+Best fitness: 97.1333(min) Runtime: 217.092(sec)
+
+ err:  
+
+###############
+##3##:
+./HEA_cuda -c ../input/cluster.vcl -w ../input/Workflows/Sipht_100.xml.dag
+ rand seed: 1510831641
+Best fitness: 90.6167(min) Runtime: 536.698(sec)
+
+ err:  
+
+###############
+##4##:
+./HEA_cuda -c ../input/cluster.vcl -w ../input/Workflows/Sipht_100.xml.dag
+ rand seed: 1510832178
+Best fitness: 91.3(min) Runtime: 765.751(sec)
+
+ err:  
+
+###############
