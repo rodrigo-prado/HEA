@@ -59,9 +59,11 @@ struct Solution {
 
 struct Environment {
 	double * base;
+	unsigned int * whatisit;
+	
 	double * slowdown;
 	double * link;
-	unsigned int * whatisit;
+	
 	int num_vms;
 	int size;
 };
@@ -69,7 +71,7 @@ struct Environment {
 /**
  * The cost of swapping node i with node j.
  */
-__device__ double cost(const Environment env_, const Solution solution_, const Move & move, const unsigned int & num_nodes_) {
+__device__ double cost(const Environment & env_, const Solution & solution_, const Move & move, const unsigned int & num_nodes_) {
 	int i = move.i;
 	int j = move.j;
 

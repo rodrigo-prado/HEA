@@ -404,11 +404,11 @@ inline void localSearch(vect_chrom_type &Population, Data *data, Environment & h
     for (int j = 0; j < how_many; j++) {
         auto ch_pos = tournamentSelection(Population);
 
-        Population[ch_pos] = local_search(Population[ch_pos], data, h_env);
         
         // Population[ch_pos] = localSearchN1(data, Population[ch_pos]);
         Population[ch_pos] = localSearchN2(data, Population[ch_pos]);
         Population[ch_pos] = localSearchN3(data, Population[ch_pos]);
+        Population[ch_pos] = local_search(Population[ch_pos], data, h_env);
     }
 }
 
