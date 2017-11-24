@@ -278,7 +278,7 @@ Chromosome local_search(Chromosome solution_old,  Data * data, Environment h_env
 	const unsigned int num_moves = (num_nodes-2)*(num_nodes-1)/2;
 
 	// const unsigned int num_evaluate_threads = 8192;
-	const unsigned int num_evaluate_threads = 2048;
+	const unsigned int num_evaluate_threads = 1024;
 	const dim3 evaluate_block(128);
 	const dim3 evaluate_grid((num_evaluate_threads + evaluate_block.x-1) / evaluate_block.x);
 	

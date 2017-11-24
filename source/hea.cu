@@ -611,8 +611,9 @@ int main(int argc, char **argv) {
         best.print();
     }
 
-    cout <<"rand seed: " << seed << endl;
-    cout << "Best fitness: " << best.fitness / 60.0 << "(min)" << " Runtime: " << elapseSecs << "(sec)" << endl;
+    // cout <<"rand seed: " << seed << endl;
+    // cout << "Best fitness: " << best.fitness / 60.0 << "(min)" << " Runtime: " << elapseSecs << "(sec)" << endl;
+    cout << best.fitness / 60.0 <<  "\t" << elapseSecs << endl;
 
 
 
