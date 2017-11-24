@@ -1,0 +1,40 @@
+##0##:
+./HEA_cuda -c ../input/cluster.vcl -w ../input/Workflows/CyberShake_100.xml.dag 
+ rand seed: 1510761872
+Best fitness: 30.7333(min) Runtime: 618.341(sec)
+
+ err:  
+
+###############
+##1##:
+./HEA_cuda -c ../input/cluster.vcl -w ../input/Workflows/CyberShake_100.xml.dag 
+ rand seed: 1510762490
+Best fitness: 31.5333(min) Runtime: 392.508(sec)
+
+ err:  
+
+###############
+##2##:
+./HEA_cuda -c ../input/cluster.vcl -w ../input/Workflows/CyberShake_100.xml.dag 
+ rand seed: 1510762883
+Best fitness: 30.7333(min) Runtime: 1226.36(sec)
+
+ err:  
+
+###############
+##3##:
+./HEA_cuda -c ../input/cluster.vcl -w ../input/Workflows/CyberShake_100.xml.dag 
+ rand seed: 1510764109
+Best fitness: 29.95(min) Runtime: 1309.24(sec)
+
+ err:  
+
+###############
+##4##:
+./HEA_cuda -c ../input/cluster.vcl -w ../input/Workflows/CyberShake_100.xml.dag 
+ rand seed: 1510765418
+Best fitness: 30.8167(min) Runtime: 785.24(sec)
+
+ err:  
+
+###############

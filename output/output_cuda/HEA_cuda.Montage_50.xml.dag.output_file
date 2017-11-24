@@ -1,0 +1,40 @@
+##0##:
+./HEA_cuda -c ../input/cluster.vcl -w ../input/Workflows/Montage_50.xml.dag
+ rand seed: 1510792096
+Best fitness: 3(min) Runtime: 50.0455(sec)
+
+ err:  
+
+###############
+##1##:
+./HEA_cuda -c ../input/cluster.vcl -w ../input/Workflows/Montage_50.xml.dag
+ rand seed: 1510792146
+Best fitness: 2.91667(min) Runtime: 96.3584(sec)
+
+ err:  
+
+###############
+##2##:
+./HEA_cuda -c ../input/cluster.vcl -w ../input/Workflows/Montage_50.xml.dag
+ rand seed: 1510792242
+Best fitness: 2.96667(min) Runtime: 55.7753(sec)
+
+ err:  
+
+###############
+##3##:
+./HEA_cuda -c ../input/cluster.vcl -w ../input/Workflows/Montage_50.xml.dag
+ rand seed: 1510792298
+Best fitness: 3.03333(min) Runtime: 37.3641(sec)
+
+ err:  
+
+###############
+##4##:
+./HEA_cuda -c ../input/cluster.vcl -w ../input/Workflows/Montage_50.xml.dag
+ rand seed: 1510792336
+Best fitness: 2.96667(min) Runtime: 47.8553(sec)
+
+ err:  
+
+###############
