@@ -40,7 +40,7 @@ inline double transferTime(File file, VMachine vm1, VMachine vm2) {
 }
 
 inline double
-FT(Data *data, Task task, VMachine vm, vector<double> &ft_vector, vector<double> &queue, vector<int> file_place, double lambda) {
+FT(Data *data, Task task, VMachine vm, vector<double> &ft_vector, vector<double> &queue, vector<int> file_place) {
     double start_time = 0;
     double read_time = 0;
     double write_time = 0;
@@ -55,12 +55,12 @@ FT(Data *data, Task task, VMachine vm, vector<double> &ft_vector, vector<double>
             int vm_id = file.is_static ? file.static_vm : file_place[file.id];
 
             auto vmj = data->vm_map.find(file_place[vm_id])->second;
-            read_time += ceil(transferTime(file, vm, vmj) + (file.size * lambda));
+            read_time += ceil(transferTime(file, vm, vmj));
         }
         //write time
         for (auto out : task.output) {
             auto file = data->file_map.find(out)->second;
-            write_time += ceil(file.size * (2 * lambda));
+            write_time += ceil(file.size * 0);
         }
 
     } else if (task.id == data->id_sink) {
@@ -78,7 +78,7 @@ FT(Data *data, Task task, VMachine vm, vector<double> &ft_vector, vector<double>
 
 void
 schedule(Data *data, list<int> avail_tasks, vector<double> &ft_vector, vector<double> &queue, vector<int> &file_place,
-         list<int> &task_ordering, double lambda) {
+         list<int> &task_ordering) {
 
     double min_time;
 
@@ -98,7 +98,7 @@ schedule(Data *data, list<int> avail_tasks, vector<double> &ft_vector, vector<do
             auto task = data->task_map.find(task_id)->second;
             for (int j = 0; j < data->vm_size; j++) {
                 auto vm = data->vm_map.find(j)->second;
-                double time = FT(data, task, vm, ft_vector, queue, file_place, lambda);
+                double time = FT(data, task, vm, ft_vector, queue, file_place);
                 if (time < min_time) { // Get minimum time and minimum vm
                     min_time = time;
                     min_vm = j;

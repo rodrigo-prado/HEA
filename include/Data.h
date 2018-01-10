@@ -21,6 +21,7 @@
 #include <algorithm>
 #include <boost/algorithm/string.hpp>
 #include <map>
+#include <omp.h>
 
 using namespace std;
 
@@ -140,7 +141,7 @@ private:
 		// resize GPU structures
 		whatisit.resize(size + sfile_size);
 		base.resize(size + sfile_size);
-		
+
 
 		getline(in_file, line); //reading blank line
 
@@ -228,7 +229,7 @@ private:
 		}
 		getline(in_file, line); //reading blank line
 
-		
+
 		//Update Root and Sink tasks
 		id_root = 0;
 		id_sink = id_task;
@@ -359,7 +360,7 @@ private:
 				computeHeight(j, n+1);
 		}
 	}
-	
+
 	unordered_map<int, vector<int>> reverse_map(unordered_map<int, vector<int>> amap){
 		unordered_map<int, vector<int>> r_map;
 		for(auto key : amap){
@@ -375,14 +376,3 @@ private:
 
 
 #endif /* DATA_H_ */
-
-
-
-
-
-
-
-
-
-
-
