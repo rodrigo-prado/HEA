@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/luan/project/HEA/source/main.cpp" "/home/luan/project/HEA/cmake-build-debug/CMakeFiles/HEA.dir/source/main.cpp.o"
+  "/home/luan/HEA/source/hea.cpp" "/home/luan/HEA/cmake-build-debug/CMakeFiles/HEA.dir/source/hea.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

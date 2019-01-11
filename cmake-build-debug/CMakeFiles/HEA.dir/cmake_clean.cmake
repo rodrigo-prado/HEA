@@ -1,5 +1,5 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/HEA.dir/source/main.cpp.o"
+  "CMakeFiles/HEA.dir/source/hea.cpp.o"
   "HEA.pdb"
   "HEA"
 )

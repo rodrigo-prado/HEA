@@ -36,16 +36,16 @@ public:
     vector<double> time_vector, start_time_vector;
     vector<int> ordering;
     double fitness, lambda, transfer_size;
-    Data data;
+    Data* data;
     unordered_map<int, vector<string>> scheduler;
     unordered_map<int, vector<int>> vm_queue;
 
 
-    Chromosome(Data data, double lambda) :
-            allocation(data.size, -1), height_soft(data.task_size, -1),
-            time_vector(data.task_size, -1), start_time_vector(data.task_size, -1),
+    Chromosome(Data* data, double lambda) :
+            allocation(data->size, -1), height_soft(data->task_size, -1),
+            time_vector(data->task_size, -1), start_time_vector(data->task_size, -1),
             ordering(0), fitness(0), lambda(lambda), transfer_size(0), data(data) {
-        computeHeightSoft(data.id_root);
+        computeHeightSoft(data->id_root);
         encode();
         computeFitness();
     }
@@ -70,7 +70,7 @@ public:
         fill(time_vector.begin(), time_vector.end(), -1);
         fill(start_time_vector.begin(), start_time_vector.end(), -1);
 
-        vector<double> queue(data.vm_size, 0);
+        vector<double> queue(data->vm_size, 0);
 
         if (check_storage && !checkFiles()) {
             std::cerr << "check file error" << endl;
@@ -81,7 +81,7 @@ public:
         vm_queue.clear();
         // compute makespan
         for (auto id_task : ordering) {//for each task, do
-            if (id_task != data.id_root && id_task != data.id_sink) {//if is not root or sink than
+            if (id_task != data->id_root && id_task != data->id_sink) {//if is not root or sink than
                 
                 if (check_sequence && !checkTaskSeq(id_task)) {
                     std::cerr << "Encode error - Chrom: Error in the precedence relations." << endl;
@@ -89,8 +89,8 @@ public:
                 }
 
                 // Load Vm
-                auto vm = data.vm_map.find(allocation[id_task])->second;
-                auto task = data.task_map.find(id_task)->second;
+                auto vm = data->vm_map.find(allocation[id_task])->second;
+                auto task = data->task_map.find(id_task)->second;
 
                 // update vm queue
                 auto f_queue = vm_queue.insert(make_pair(vm.id, vector<int>()));
@@ -113,25 +113,25 @@ public:
                 queue[vm.id] = finish_time;
                 
             } else {// root and sink tasks
-                if (id_task == data.id_root)
+                if (id_task == data->id_root)
                     time_vector[id_task] = 0;
                 else {//sink task
                     double max_value = 0.0;
-                    for (auto tk : data.prec.find(id_task)->second)
+                    for (auto tk : data->prec.find(id_task)->second)
                         max_value = std::max(max_value, time_vector[tk]);
                     time_vector[id_task] = max_value;
                 }
             }
         }
 
-        fitness = time_vector[data.id_sink];
+        fitness = time_vector[data->id_sink];
     }
 
     /*crossover*/
     Chromosome crossover(Chromosome partner) {
         Chromosome chr(partner);
-        uniform_int_distribution<> dis_ordering(0, data.task_size - 1);
-        uniform_int_distribution<> dis_allocation(0, data.size - 1);
+        uniform_int_distribution<> dis_ordering(0, data->task_size - 1);
+        uniform_int_distribution<> dis_allocation(0, data->size - 1);
 
         int point_ordering = dis_ordering(engine_chr);//crossover point to ordering list
         int point_allocation = dis_allocation(engine_chr);//crossover point to allocation list
@@ -140,7 +140,7 @@ public:
             chr.allocation[i] = allocation[i];
         }
         //ordering crossover
-        vector<bool> aux(data.task_size, false);
+        vector<bool> aux(data->task_size, false);
         chr.ordering.clear();
         //ordering crossover first part self -> chr
         for (auto i = 0; i < point_ordering; i++) {
@@ -149,7 +149,7 @@ public:
         }
 
         //Ordering crossover second part partner -> chr
-        for (auto i = 0; i < data.task_size; i++) {
+        for (auto i = 0; i < data->task_size; i++) {
             if (!aux[partner.ordering[i]])
                 chr.ordering.push_back(partner.ordering[i]);
         }
@@ -158,8 +158,8 @@ public:
 
     //Mutation on allocation chromosome
     void mutate(double prob) {
-        uniform_int_distribution<> idis(0, data.vm_size - 1);
-        for (int i = 0; i < data.size; i++) {
+        uniform_int_distribution<> idis(0, data->vm_size - 1);
+        for (int i = 0; i < data->size; i++) {
             if (((float) random() / (float) RAND_MAX) <= prob) {
                 allocation[i] = idis(engine_chr);
             }
@@ -171,7 +171,7 @@ public:
 
         cout << "#!# " << fitness << endl;
         cout << "Tasks: " << endl;
-        for (auto info : data.vm_map) {
+        for (auto info : data->vm_map) {
             auto vm = info.second;
             cout << vm.id << ": ";
             auto f = scheduler.find(vm.id);
@@ -184,7 +184,7 @@ public:
 
         cout << endl;
 
-        /*for(auto info : data.vm_map){
+        /*for(auto info : data->vm_map){
             auto vm = info.second;
             cout << "[" << vm.id << "]" << " <" << vm.name << "> : ";
             auto f = scheduler.find(vm.id);
@@ -195,10 +195,10 @@ public:
             cout << endl;
         }*/
         cout << "Files: " << endl;
-        for (auto info: data.vm_map) {
+        for (auto info: data->vm_map) {
             auto vm = info.second;
             cout << vm.id << ": ";
-            for (auto info : data.file_map) {
+            for (auto info : data->file_map) {
                 auto file = info.second;
                 int vm_id = file.is_static ? file.static_vm : allocation[file.id];
                 if (vm_id == vm.id)
@@ -208,7 +208,7 @@ public:
         }
 
 
-        /*for(auto info : data.file_map){
+        /*for(auto info : data->file_map){
             auto file = info.second;
             int vm_id = file.is_static ? file.static_vm : allocation[file.id];
             cout << "["  << vm_id << ", " << file.name << "]" << " ";
@@ -217,8 +217,8 @@ public:
 
         /*cout << "Task Sequence: " << endl;
         for(auto task_id : ordering)
-            if(task_id != data.id_root && task_id && data.id_sink)
-                cout << data.task_map.find(task_id)->second.name <<  ", ";
+            if(task_id != data->id_root && task_id && data->id_sink)
+                cout << data->task_map.find(task_id)->second.name <<  ", ";
         cout << endl;*/
 
     }
@@ -228,18 +228,18 @@ public:
         int distance = 0;
 
         // compute the distance based on position
-        for (int i = 0; i < data.size; i++) {
+        for (int i = 0; i < data->size; i++) {
             if (chr.allocation[i] != allocation[i])
                 distance += 1;
         }
 
         // compute the distance based on swaps required
         vector<int> aux_ordering(ordering);
-        for (int i = 0; i < data.task_size; i++) {
+        for (int i = 0; i < data->task_size; i++) {
             if (chr.ordering[i] != aux_ordering[i]) {
                 distance += 1;
 
-                for (int j = i + 1; j < data.task_size; j++)
+                for (int j = i + 1; j < data->task_size; j++)
                     if (chr.ordering[i] == aux_ordering[j])
                         iter_swap(aux_ordering.begin() + i, aux_ordering.begin() + j);
 
@@ -256,16 +256,16 @@ private:
         int min = numeric_limits<int>::max();
         if (height_soft[node] != -1)
             return height_soft[node];
-        if (node != data.id_sink) {
-            for (auto i : data.succ.find(node)->second) {
+        if (node != data->id_sink) {
+            for (auto i : data->succ.find(node)->second) {
                 int value = computeHeightSoft(i);
                 min = std::min(value, min);
             }
         } else {
-            height_soft[node] = data.height[node];
+            height_soft[node] = data->height[node];
             return height_soft[node];
         }
-        uniform_int_distribution<> dis(data.height[node], min - 1);
+        uniform_int_distribution<> dis(data->height[node], min - 1);
         height_soft[node] = dis(engine_chr);
         return height_soft[node];
     }
@@ -281,15 +281,15 @@ private:
             ordering.push_back(task);
 
         //Encode allocation chromosome
-        uniform_int_distribution<> dis(0, data.vm_size - 1);
-        for (int i = 0; i < data.size; i++)
+        uniform_int_distribution<> dis(0, data->vm_size - 1);
+        for (int i = 0; i < data->size; i++)
             allocation[i] = dis(engine_chr);
 
     }
 
     /* Checks the sequence of tasks is valid */
     inline bool checkTaskSeq(int task) {
-        for (auto tk : data.prec.find(task)->second)
+        for (auto tk : data->prec.find(task)->second)
             if (time_vector[tk] == -1)
                 return false;
         return true;
@@ -300,8 +300,8 @@ private:
         bool flag = true;
         int count = 0;
 
-        vector<double> aux_storage(data.storage_vet);
-        vector<int> aux(data.vm_size);
+        vector<double> aux_storage(data->storage_vet);
+        vector<int> aux(data->vm_size);
         iota(aux.begin(), aux.end(), 0); // 0,1,2,3,4 ... n
 
 
@@ -309,12 +309,12 @@ private:
 
         int id_vm;
         // build file map and compute the storage
-        for (auto it : data.file_map) {
+        for (auto it : data->file_map) {
             if (!it.second.is_static) {
                 id_vm = allocation[it.second.id];
                 auto f = map_file.insert(make_pair(id_vm, vector<int>()));
                 f.first->second.push_back(it.second.id);
-                auto file = data.file_map.find(it.second.id)->second;
+                auto file = data->file_map.find(it.second.id)->second;
                 aux_storage[id_vm] -= file.size;
             }
         }
@@ -338,7 +338,7 @@ private:
                 //search min file (based on the size of file)
                 for_each(vet_file.begin(), vet_file.end(), [&](int i) {
                     cout << i << endl;
-                    auto file = data.file_map.find(i)->second;
+                    auto file = data->file_map.find(i)->second;
                     cout << file.name << endl;
                     if (file.size < min) {
                         min = file.size;
@@ -346,7 +346,7 @@ private:
                     }
                 });
 
-                auto file_min = data.file_map.find(min_file)->second;
+                auto file_min = data->file_map.find(min_file)->second;
 
                 cout << file_min.name << endl;
                 //minFile will be move to machine with more empty space
@@ -362,7 +362,7 @@ private:
 
             count++;
 
-        } while (flag && count < data.file_size);
+        } while (flag && count < data->file_size);
 
         return !flag;
 
@@ -373,7 +373,7 @@ private:
         // compute wait time
         double max_pred_time = 0.0;
 
-        for (auto tk : data.prec.find(task.id)->second)
+        for (auto tk : data->prec.find(task.id)->second)
             max_pred_time = std::max(max_pred_time, time_vector[tk]);
         return std::max(max_pred_time, queue[vm.id]);
     }
@@ -386,7 +386,7 @@ private:
 
 
         for (auto id_file : task.input) {
-            auto file = data.file_map.find(id_file)->second;
+            auto file = data->file_map.find(id_file)->second;
 
             if (!file.is_static) {
                 id_vm_file = allocation[file.id];
@@ -397,7 +397,7 @@ private:
                 id_vm_file = file.static_vm;
 
 
-            auto vm_file = data.vm_map.find(id_vm_file)->second;
+            auto vm_file = data->vm_map.find(id_vm_file)->second;
 
             read_time += ceil(TT(file, vm, vm_file) + (file.size * lambda));
         }
@@ -411,8 +411,8 @@ private:
         //compute the write time
         double write_time = 0;
         for (auto id_file :task.output) {
-            auto file = data.file_map.find(id_file)->second;
-            auto vm_file = data.vm_map.find(allocation[file.id])->second;
+            auto file = data->file_map.find(id_file)->second;
+            auto vm_file = data->vm_map.find(allocation[file.id])->second;
 
             // update vm queue
             auto f_queue = vm_queue.insert(make_pair(vm_file.id, vector<int>()));

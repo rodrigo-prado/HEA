@@ -1,4 +1,4 @@
-#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
 
 #IncludeRegexScan: ^.*$
 
@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/luan/project/HEA/include/Chromosome.h
+/home/luan/HEA/include/Chromosome.h
 iostream
 -
 vector
@@ -20,9 +20,9 @@ algorithm
 random
 -
 Data.h
-/home/luan/project/HEA/include/Data.h
+/home/luan/HEA/include/Data.h
 
-/home/luan/project/HEA/include/Data.h
+/home/luan/HEA/include/Data.h
 iostream
 -
 vector
@@ -46,7 +46,7 @@ boost/algorithm/string.hpp
 map
 -
 
-/home/luan/project/HEA/include/HEFT.h
+/home/luan/HEA/include/HEFT.h
 string
 -
 iostream
@@ -56,9 +56,9 @@ algorithm
 tclap/CmdLine.h
 -
 Data.h
-/home/luan/project/HEA/include/Data.h
+/home/luan/HEA/include/Data.h
 Chromosome.h
-/home/luan/project/HEA/include/Chromosome.h
+/home/luan/HEA/include/Chromosome.h
 boost/bimap.hpp
 -
 boost/range/algorithm/copy.hpp
@@ -68,7 +68,7 @@ boost/range/adaptors.hpp
 boost/range/join.hpp
 -
 
-/home/luan/project/HEA/include/MinMin.h
+/home/luan/HEA/include/MinMin.h
 string
 -
 iostream
@@ -78,9 +78,9 @@ algorithm
 tclap/CmdLine.h
 -
 Data.h
-/home/luan/project/HEA/include/Data.h
+/home/luan/HEA/include/Data.h
 Chromosome.h
-/home/luan/project/HEA/include/Chromosome.h
+/home/luan/HEA/include/Chromosome.h
 boost/bimap.hpp
 -
 boost/range/algorithm/copy.hpp
@@ -90,11 +90,11 @@ boost/range/adaptors.hpp
 boost/range/join.hpp
 -
 
-/home/luan/project/HEA/source/hea.cpp
+/home/luan/HEA/source/hea.cpp
 iostream
 -
 ../include/HEFT.h
-/home/luan/project/HEA/include/HEFT.h
+/home/luan/HEA/include/HEFT.h
 ../include/MinMin.h
-/home/luan/project/HEA/include/MinMin.h
+/home/luan/HEA/include/MinMin.h
 
