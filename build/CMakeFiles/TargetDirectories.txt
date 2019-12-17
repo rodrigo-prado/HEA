@@ -1,3 +1,0 @@
-/home/luan/HEA/build/CMakeFiles/rebuild_cache.dir
-/home/luan/HEA/build/CMakeFiles/HEA.dir
-/home/luan/HEA/build/CMakeFiles/edit_cache.dir
