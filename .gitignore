@@ -1,8 +1,10 @@
 # Ignore the build and lib dirs
-build/*
 cmake-build-debug/*
 lib/*
 .idea/*
 
 # Ignore any executables
-bin/*
+bin
+
+.vscode
+build
